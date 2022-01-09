@@ -9,6 +9,7 @@ acmart.bib
 *.fdb_latexmk
 *.fls
 *.log
+*.code-workspace
 *.out
 *.pdf.skim.pdf
 *.synctex.gz

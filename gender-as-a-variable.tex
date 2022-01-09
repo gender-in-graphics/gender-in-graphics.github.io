@@ -1,4 +1,3 @@
-% The first command in your LaTeX source must be the \documentclass command.
 \PassOptionsToPackage{table}{xcolor}
 \documentclass[acmtog,nonacm,review,balance=false]{acmart}
 \citestyle{acmauthoryear}
@@ -10,8 +9,7 @@
 
 \title{On the use of gender as a variable in Computer Graphics research}
 
-\author{Silvia Sell\'{a}n}
-\affiliation{\institution{University of Toronto}}
+\author{Silvia Sell\'{a}n} \affiliation{\institution{University of Toronto}}
 
 \begin{abstract}
 \end{abstract}
@@ -19,58 +17,50 @@
 
 \maketitle
 
+\cite{phillips2020gamer}
 
-A person's self-identity is, by definition, not subject to debate, be it political or
-scientific. Similarly, it is not my intention to open or contribute to a
-``debate'' on a person's individual right to a life in liberty, dignity and equality in rights 
-with their fellow
-humans as stated in Article 1 of the United Nations' Universal Declaration
-of Human Rights.  
+% A person's self-identity is, by definition, not subject to debate, be it
+% political or scientific. Similarly, it is not my intention to open or contribute
+% to a ``debate'' on a person's individual right to a life in liberty, dignity and
+% equality in rights with their fellow humans as stated in Article 1 of the United
+% Nations' Universal Declaration of Human Rights.  
 
-Rather, my focus is on examining the current use of a specific demographic
+My focus is on examining the current use of a specific demographic
 variable (gender) in the context of Computer Graphics research. I will argue
 that (1) its use is a product of unscientific assumptions; (2) it is not
-currently rigorously
-defined and thus its use is harmful to research replicability; (3) its current use excludes
-a significant subset of the human population and contributes to their
-ongoing prosecution, discrimination and opression, thus going against ACM
-SIGGRAPH's Vision of \emph{enabling everyone to tell their stories}; and (4) its
-current use can be easily modified to not present problems (1)-(3).
+currently rigorously defined and thus its use is harmful to research
+replicability; (3) its current use excludes a significant subset of the human
+population and contributes to their ongoing prosecution, discrimination and
+opression, thus going against ACM SIGGRAPH's Vision of \emph{enabling everyone
+to tell their stories}; and (4) its current use can be easily modified to not
+present problems (1)-(3).
 
 \section{An unscientific assumption}
 
-In all of the published Computer Graphics literature I've reviewed, ``gender'' 
-is often used as a variable and, when it is, it is treated as a binary proxy 
-for a set of physical characteristics. The assumptions behind its use as a
-relevant variable can and should be scientifically assessed.
+In all of the published Computer Graphics literature I've reviewed, ``gender''
+is often used as a variable and, when it is, it is treated as a binary proxy for
+a set of physical characteristics. The assumptions behind its use as a relevant
+variable can and should be scientifically assessed.
 
 The implicit, be it concious or unconcious, assumption in the literature seems
 to be that, physically, every human's appearance or behavior can be modeled as
-belonging to a very
-high-dimensional vector space $\mathcal{V}$ that could theoretically be spanned
-by a very large set of (not orthogonal) basis vectors $\{v_1,\dots, v_n\}$
-spanning subspaces like weight,
-skin tone, eye color, hair style, clothes worn, facial expression, etc.
-Furthermore, the assumption says, the distribution of humans in $\mathcal{V}$
-follows a bimodal law, and one of the modes can be arbitrarily called female or
-woman
-while the other may be called male or man. 
+belonging to a very high-dimensional vector space $\mathcal{V}$ that could
+theoretically be spanned by a very large set of (not orthogonal) basis vectors
+$\{v_1,\dots, v_n\}$ spanning subspaces like weight, skin tone, eye color, hair
+style, clothes worn, facial expression, etc. Furthermore, the assumption says,
+the distribution of humans in $\mathcal{V}$ follows a bimodal law, and one of
+the modes can be arbitrarily called female or woman while the other may be
+called male or man. 
 
 The above assumption is wrong, both in theory and in practice. Some of these
-attributes, like height, broadness of shoulders, voice pitch or hair length, may be empirically
-shown to \emph{independently} follow what is well approximated by a
-bimodal distribution. 
-What \emph{doesn't} follow theoretically from this fact is that their \emph{joint probability}
-also follows a bimodal distribution: in general, the joint probability of $k$
-bimodal distributions can only be said to be at most $2^k$-modal. This
-undeniably manifests
-in practice: while both height and hair length may be independently distributed
-bimodally with a higher mode and a lower mode each, transgender women will
-generally be distributed according to the ``taller height and longer hair''
-mode, cisgender women to the ``shorter height and longer hair'', transgender men
-to ``shorter height and longer hair'' and cisgender men to ``taller height and
-shorter hair''. Similar arguments can be made with chest size, hip width,
-body-mass index, facial hair, hair style, voice pitch, etc.
+attributes, like height, broadness of shoulders, voice pitch or hair length, may
+be empirically shown to \emph{independently} follow what is well approximated by
+a bimodal distribution. What \emph{doesn't} follow theoretically from this fact
+is that their \emph{joint probability} also follows a bimodal distribution: in
+general, the joint probability of $k$ bimodal distributions can only be said to
+be at most $2^k$-modal. This undeniably manifests in practice too: [example??]. Similar arguments can
+be made with chest size, hip width, body-mass index, facial hair, hair style,
+voice pitch, etc.
 
 \section{A non rigurously defined variable}
 
@@ -89,17 +79,17 @@ themselves may not know exactly which human characteristics are being mapped to
 this binary classification.
 
 In most cases, the use of gender without a proper definition creates a model
-ambiguity which is detrimental to the advancement of science. For example, a 
-voice recognition paper may refer to humans with higher pitched
-voices as female and humans with lower pitched voices as male, or it may be
-may be discriminating between certain speech patterns and word choices.
-Similarly, a full-body motion capture algorithm may use gender as a proxy for
-certain unspecified physiological attributes that aid with sensor positioning,
-for different ranges of Body Mass Index or for which poses and gestures are traditionally
-adscribed to a gender in a certain culture. Finally, a facial reconstruction
-algorithm may claim to take a person's gender as input, without clarifying
-whether it refers to the presence of facial hair or makeup, a larger or smaller
-jaw, or a person's facial expression.
+ambiguity which is detrimental to the advancement of science. For example, a
+voice recognition paper may refer to humans with higher pitched voices as female
+and humans with lower pitched voices as male, or it may be may be discriminating
+between certain speech patterns and word choices. Similarly, a full-body motion
+capture algorithm may use gender as a proxy for certain unspecified
+physiological attributes that aid with sensor positioning, for different ranges
+of Body Mass Index or for which poses and gestures are traditionally adscribed
+to a gender in a certain culture. Finally, a facial reconstruction algorithm may
+claim to take a person's gender as input, without clarifying whether it refers
+to the presence of facial hair or makeup, a larger or smaller jaw, or a person's
+facial expression.
 
 \section{The real-world impact}
 
@@ -121,15 +111,15 @@ in the current use of gender as a variable in Computer Graphics research
 directly contribute to further harm communities which are already at higher
 risks of being mistreated by authorities and denied jobs or healthcare. 
 
-Furthermore, graphics researcher must consider our role in shaping the
-whose stories get to be told and who gets to seem themself be represented in the
-entertainment culture. In one fell swoop, by assuming a wrong bimodality in gender and 
-making character models and animation rigs that use
-gender as a binary variable, we exclude gender non-conforming individuals from
-every videogame and movie created using our tool. By not examining our decisions
-around the use of gender in our algorithms, we contribute to further invisibilize 
-already-invisible and marginalized communities, and in doing so contribute also
-to their ongoing opression.
+Furthermore, graphics researcher must consider our role in shaping the whose
+stories get to be told and who gets to seem themself be represented in the
+entertainment culture. In one fell swoop, by assuming a wrong bimodality in
+gender and making character models and animation rigs that use gender as a
+binary variable, we exclude gender non-conforming individuals from every
+videogame and movie created using our tool. By not examining our decisions
+around the use of gender in our algorithms, we contribute to further
+invisibilize already-invisible and marginalized communities, and in doing so
+contribute also to their ongoing opression.
 
 Finally, the current use of gender in the Computer Graphics literature creates a
 hostile environment for gender non-conforming members of our research community,
@@ -164,10 +154,10 @@ Computer Graphics research work, and our proposed best practices vary for each:
     recommend authors to contact all the societal stakeholders, including trans
     and gender non-conforming scientists and ethicists, on the appropriateness
     and relevance of the proposed work. 
-  \item As aggregate demographic data on the participants on user studies, to guard
-    against \emph{reference man}-type research outcomes. In the vast majority of
-    cases, this should be self-reported by user participants and not assumed by
-    the person conducting the study.
+  \item As aggregate demographic data on the participants on user studies, to
+    guard against \emph{reference man}-type research outcomes. In the vast
+    majority of cases, this should be self-reported by user participants and not
+    assumed by the person conducting the study.
 \end{enumerate}
 
 \section{Open questions}

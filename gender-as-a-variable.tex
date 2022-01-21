@@ -1,168 +1,219 @@
 \PassOptionsToPackage{table}{xcolor}
-\documentclass[acmtog,nonacm,review,balance=false]{acmart}
+\documentclass[sigconf,nonacm,review,balance=false]{acmart}
+\setcopyright{none}
 \citestyle{acmauthoryear}
 \setcitestyle{square}
 
+\setcopyright{none}
+\acmConference[Under Review]{Under Review}{Under Review}{Online} \acmYear{2021}
+
+\settopmatter{authorsperrow=4}
 \input{common-preamble}
+
+
 
 \begin{document}
 
-\title{On the use of gender as a variable in Computer Graphics research}
+\title{Gender in the Computer Graphics research literature}
 
-\author{Silvia Sell\'{a}n} \affiliation{\institution{University of Toronto}}
+\author{Silvia Sellán}
+\affiliation{\institution{University of Toronto}}
+
+\author{Ana Dodik}
+\affiliation{\institution{Meta}}
+
+\author{Theodore Kim}
+\affiliation{\institution{Yale University}}
+
+\author{Amanda Phillips}
+\affiliation{\institution{Georgetown University}}
+
 
 \begin{abstract}
+    We survey the treatment of gender in the Computer Graphics research
+    literature and its scientific and real-world consequences. We conclude
+    current trends on the use of gender in our research community constitute a
+    form of algorithmic bias with harmful effects. We propose ways for
+    correcting these trends and pose novel research questions.
 \end{abstract}
 
 
 \maketitle
 
-\cite{phillips2020gamer}
 
-% A person's self-identity is, by definition, not subject to debate, be it
-% political or scientific. Similarly, it is not my intention to open or contribute
-% to a ``debate'' on a person's individual right to a life in liberty, dignity and
-% equality in rights with their fellow humans as stated in Article 1 of the United
-% Nations' Universal Declaration of Human Rights.  
+\section{Introduction}
 
-My focus is on examining the current use of a specific demographic
-variable (gender) in the context of Computer Graphics research. I will argue
-that (1) its use is a product of unscientific assumptions; (2) it is not
-currently rigorously defined and thus its use is harmful to research
-replicability; (3) its current use excludes a significant subset of the human
-population and contributes to their ongoing prosecution, discrimination and
-opression, thus going against ACM SIGGRAPH's Vision of \emph{enabling everyone
-to tell their stories}; and (4) its current use can be easily modified to not
-present problems (1)-(3).
+\textit{We captured three actors: one male and two females...} \textit{We
+synthesize a [human motion] dataset for each gender...} \textit{We constraint
+the search space into [one of] the male and female spaces...} \textit{We use a
+male model whose body shape parameters are that of the average male...}
 
-\section{An unscientific assumption}
+References to gender can be found all throughout the Computer Graphics
+literature. Despite advancements in the understanding of gender in biology (e.g., \cite{fausto2012sex}), in the social sciences (e.g., \cite{butler2003gender}) and even in neighboring
+fields (e.g., \cite{keyes2021you}), we observe that the treatment of gender in our discipline
+still answers to a traditional understanding of it that excludes transgender and
+gender non-conforming people.
 
-In all of the published Computer Graphics literature I've reviewed, ``gender''
-is often used as a variable and, when it is, it is treated as a binary proxy for
-a set of physical characteristics. The assumptions behind its use as a relevant
-variable can and should be scientifically assessed.
+In what follows, we argue that our community's current use of gender is
+imprecise, contradictory and detrimental to our scientific integrity.
+We examine the harmful real-world consequences of our modeling
+choices with respect to gender on how gender non-conforming people interact with
+our technology in their daily lives. We advocate for reexamining our
+treatment of gender and show that this will not only correct worrying trends in
+our community, but also open the door to whole new avenues of research.
 
-The implicit, be it concious or unconcious, assumption in the literature seems
-to be that, physically, every human's appearance or behavior can be modeled as
-belonging to a very high-dimensional vector space $\mathcal{V}$ that could
-theoretically be spanned by a very large set of (not orthogonal) basis vectors
-$\{v_1,\dots, v_n\}$ spanning subspaces like weight, skin tone, eye color, hair
-style, clothes worn, facial expression, etc. Furthermore, the assumption says,
-the distribution of humans in $\mathcal{V}$ follows a bimodal law, and one of
-the modes can be arbitrarily called female or woman while the other may be
-called male or man. 
+\section{Survey}
 
-The above assumption is wrong, both in theory and in practice. Some of these
-attributes, like height, broadness of shoulders, voice pitch or hair length, may
-be empirically shown to \emph{independently} follow what is well approximated by
-a bimodal distribution. What \emph{doesn't} follow theoretically from this fact
-is that their \emph{joint probability} also follows a bimodal distribution: in
-general, the joint probability of $k$ bimodal distributions can only be said to
-be at most $2^k$-modal. This undeniably manifests in practice too: [example??]. Similar arguments can
-be made with chest size, hip width, body-mass index, facial hair, hair style,
-voice pitch, etc.
+Inspired by the work of \citet{keyes2018misgendering}, we conducted a survey of
+all technical papers presented at SIGGRAPH North America and SIGGRAPH Asia since
+2015 (see supplemental material). We observed references to gender routinely
+throughout, varying in nature from demographic information reported about user
+study participants to gender-specific algorithms. Whenever gender is used
+explicitly as a variable, it is always as a binary one. Despite its prominence,
+gender is never given a precise definition in all the reviewed Computer Graphics
+literature, and appears to be used implicitly as a proxy for anything from body
+proportions to facial expression to voice inflection in speech.
 
-\section{A non rigurously defined variable}
+An analysis of the above reveals worrying trends about the current use of gender
+as a variable in Computer Graphics, both scientifically and ethically. As we
+mention examples of works that perpetuate these trends, we stress that we do not
+associate any malicious intent to any. Rather, we wish to show how seemingly
+neutral, well-established practices in our community can lead to us unwittingly
+perpetuating forms of algorithmic bias.
 
-The wrong bimodality assumption exposed above makes it so that researchers
-usually make arbitrary decisions on what ``male'' and ``female'' mean. While the
-specific definition used is not found on any paper I have surveyed, it is
-probably safe to assume that researchers usually use these binary categories to
-represent the modes of whichever physical attribute they subjectively consider
-most important for their application.
+\section{Scientific critique}
 
-In some cases, these attributes may be trivial to identify. For example, [cite
-the thing] appears to use gender as a proxy for the shape of a person's torso to
-aid with sensor placement. In other cases, like where gender is an input
-variable to a neural network which learned on annotated data, the authors
-themselves may not know exactly which human characteristics are being mapped to
-this binary classification.
+In our strive towards producing precise, high-quality reproducible research, we
+should be careful about using only clearly defined variables of study. However,
+our survey shows gender to be widely used yet undefined in our literature.
 
-In most cases, the use of gender without a proper definition creates a model
-ambiguity which is detrimental to the advancement of science. For example, a
-voice recognition paper may refer to humans with higher pitched voices as female
-and humans with lower pitched voices as male, or it may be may be discriminating
-between certain speech patterns and word choices. Similarly, a full-body motion
-capture algorithm may use gender as a proxy for certain unspecified
-physiological attributes that aid with sensor positioning, for different ranges
-of Body Mass Index or for which poses and gestures are traditionally adscribed
-to a gender in a certain culture. Finally, a facial reconstruction algorithm may
-claim to take a person's gender as input, without clarifying whether it refers
-to the presence of facial hair or makeup, a larger or smaller jaw, or a person's
-facial expression.
+In doing this, we are effectively asking our readers and fellow researchers to
+project their common-knowledge understanding of gender to be able to read and
+reproduce our results. As centuries of social science teaches us
+(\silvia{citations (Amanda?)}), this understanding can vary heavily from person
+to person and culture to culture. Thus, different researchers will interpret and
+implement our algorithms differently, impeding the advance of our science.
 
-\section{The real-world impact}
+This use of gender as an undefined variable is even more detrimental when
+different understandings of gender are conflated, thereby biasing algorithms
+towards grouping certain independent attributes together. To use a very
+simplified example, a human parametric model may use \emph{female} to refer to a
+group of people who generally are shorter \emph{and} have longer hair, and
+\emph{male} to refer to those taller \emph{and} with shorter hair. The use of
+this poorly-defined variable means that the statistical distributions of hair
+length and height are being artificially linked together, biasing the algorithm
+against including shorter humans with short hair, and viceversa.
 
-As computer graphics researchers, we must be aware of the effect that our
-arbitrary modelling decisions have in the real world. Our algorithms are
-commercialized and used by governments, police departments, airlines and many
-more private companies with which the public is increasingly forced to interact
-in today's world.
+We found examples of this bias throughout the literature: voice modification
+algorithms may conflate voice pitch with culturally-acquired speech inflections
+under the umbrella of gender, virtual garment try-on methods can merge a
+person's body proportions with their preference in attire, a proposed new
+conversational agent might join a person's visual appearance with traits in
+their non-verbal communication.
 
-A researcher's wrong assumption that a person's physiological characteristics
-are bimodal instead of multimodal lead to TSA body-scanners that routinely
-subject gender non-conforming people to ridicule and discrimination. A
-researcher's ambiguity regarding the gender output of a recognition algorithm
-makes it so gender non-conforming individuals can be often flagged for fraud if
-their recognized gender does not match their government identification. A
-medical imaging tool's use of gender with an unclear definition leads to
-transgender individuals going undiagnosed with severe illnesses. Current trends
-in the current use of gender as a variable in Computer Graphics research
-directly contribute to further harm communities which are already at higher
-risks of being mistreated by authorities and denied jobs or healthcare. 
+Our field's scientific advancement is damaged further when these biases go
+unreported and unstudied, as we found is the case in all our reviewed
+literature. If a human parametric model by design cannot replicate a certain
+sizeable class of humans (e.g, many transgender people), or if a virtual try-on
+algorithm cannot allow a person with certain body proportions visualize
+themselves wearing a skirt, these are \emph{scientifically} limited algorithms.
+Thus, these limitations should be discussed as such so that they do not
+unwittingly permeate through the literature and so that others can work on
+eliminating them.
 
-Furthermore, graphics researcher must consider our role in shaping the whose
-stories get to be told and who gets to seem themself be represented in the
-entertainment culture. In one fell swoop, by assuming a wrong bimodality in
-gender and making character models and animation rigs that use gender as a
-binary variable, we exclude gender non-conforming individuals from every
-videogame and movie created using our tool. By not examining our decisions
-around the use of gender in our algorithms, we contribute to further
-invisibilize already-invisible and marginalized communities, and in doing so
-contribute also to their ongoing opression.
+\section{Ethical critique}
+
+As scientific researchers, we must be aware of the effect that our arbitrary
+modelling decisions have in the real world as our algorithms are used by
+governments and private companies. 
+
+Since many people's gender experiences fall outside the male/female binary, our
+research's insistence on it can contribute to frustration (at best) and
+discrimination (at worst) when they interact with technology. A researcher's
+seemingly inocuous decision to use different search spaces for fitting male and
+female body proportions leads to airport body scanners that routinely subject
+transgender passangers to humilliation (see \cite{tsa}). A modelling choice to
+conflate body proportions with choices in attire ironically excludes precisely
+the people with non-normative bodies who are the most in danger in traditional
+physical changing rooms (see e.g., \cite{changingroom}). 
+
+
+These negative effects are compounded even further as our algorithms are being
+used to generate synthetic datasets on which to train Machine Learning
+algorithms outside of our research area. If we do not examine and properly
+report our algorithm's limitations in representing people outside of the gender
+binary, these can later be used to train autonomous vehicles to detect
+pedestrians (\cite{cars}), medical diagnosing tools (\cite{chen2021synthetic})
+and even security threat detection (\cite{dhs}).
+
+Furthermore, as Computer Graphics researchers, we must consider our role in
+shaping whose stories get to be told and who gets to seem themselves represented
+in the entertainment culture. By conflating different attributes under the
+umbrella of gender, we exclude gender non-conforming individuals from every
+videogame and movie created using our tool, further invisibilizing
+already-invisible and marginalized communities.
+
+It bears mentioning that our research community's entrenchment in the
+traditional gender binary is a rare example of Computer Graphics research
+lagging behind the needs of our partner industries. \emph{Metahuman}, the latest
+photorrealistic character modeller by \citet{metahuman} has no mention of
+gender; \citet{googlegender} removed all gender references from its Cloud Vision
+API; video games as diverse as \emph{Animal Crossing: New Horizons},
+\emph{Cyberpunk 2077} and \emph{Forza Horizon 5} completely decouple attributes
+like hairstyle, body proportions, voice pitch and prononouns from one another.
 
 Finally, the current use of gender in the Computer Graphics literature creates a
 hostile environment for gender non-conforming members of our research community,
-which goes against [cite some siggraph inclusion goal]: by seeing colleagues and
-collaborators consistently exclude us from their own research work, we are
-reminded that we do not belong in this research community, encouraging us to
-look for jobs elsewhere.
+which goes against ACM SIGGRAPH's goal to be \emph{a model of inclusion, equity,
+access and diversity for all}: by seeing colleagues and collaborators
+consistently exclude us from their own research work, we are (willingly or not)
+sent the message that we do not belong in this research community, encouraging
+us to look for jobs elsewhere.
 
 
-\section{Solutions}
+\section{Where do we go from here?}
 
-There are generally four cases in which gender shows up as a variable in a
-Computer Graphics research work, and our proposed best practices vary for each:
+We believe the reasons above to be enough to make us reevaluate the role of
+gender in our community's scientific literature.
 
-\begin{enumerate}
-  \item As a proxy for a mode in the distribution of a single human
-    characteristic; for example, to describe hair styles. In this case, we
-    recommend the gender reference be substituted, in the interest of
-    disambiguation, for the actual characteristic: for example, instead of
-    ``male and female hairstyles'', say ``longer and shorter hairstyles''.
-  \item As a proxy for many simultaneous modes in the distribution of human
-    characteristics; for example, animation of ``male bodies'' or ``female
-    bodies''. In this case, the researchers should examine the necessity of this
-    variable, and should be aware of the diversity of modes of human existence
-    they are excluding by making that design choice, as well as their potential
-    societal implications. Furthermore, if an algorithm only accepts as input or
-    output gender conforming types, this should be stated as a major
-    scientifical limitation of their work.
-  \item As the central object of study; for example, works that purport to
-    ``detect'' gender or ``change'' a given model's gender as their main
-    contribution. The potential harms of this literature are so vast that we
-    recommend authors to contact all the societal stakeholders, including trans
-    and gender non-conforming scientists and ethicists, on the appropriateness
-    and relevance of the proposed work. 
-  \item As aggregate demographic data on the participants on user studies, to
-    guard against \emph{reference man}-type research outcomes. In the vast
-    majority of cases, this should be self-reported by user participants and not
-    assumed by the person conducting the study.
-\end{enumerate}
+For example, the reporting of gender among other demographic information in user
+study participants and dataset collection subjects answer to a scientifically
+positive goal (experimental transparency) as well as an ethical one, to
+safeguard against the “male default” that plagues science and has plagued it
+since its infancy. However, we found instances in our survey of participants
+being reported as of “unknown gender”, which may indicate that their gender is
+being assumed post facto by researchers as opposed to self reported, leading to
+the potential misidentification and exclusion of gender non-conforming
+individuals or of those from certain ethnicities (see e.g.,
+\cite{santamaria2018comparison,buolamwini2018gender}). Therefore, we would argue
+it is still advisable to include this kind of data, as long as it is self
+reported by participants who are given a breadth of gender options not
+restricted to the traditional binary ones.
 
-\section{Open questions}
+On the other hand, the scientific and ethical harm caused by gender-segregated
+algorithms is likely too significant to offset any possible benefits. At the
+very least, these choices should be justified and their consequences in terms of
+excluding gender non-conforming individuals should be examined and clearly
+stated. Eventually, we hope that our field evolves to address these limitations
+and move beyond the outdated gender binary. We trust that our fellow researchers
+share our scientific excitement in this new frame of reference and the potential
+novel research directions it opens; for example:
+\begin{itemize}
+    \item What is a complete parametric model for the human body that is
+    decoupled from gender and accurately represents the diverse bodies of all
+    humans, regardless of whether they conform to traditional gender norms?
+    \item How can our research inform or contrast more modern understandings of
+    gender? Can data-based methods be used to evaluate cultural differences in
+    gender presentation?
+    \item How can we evaluate our algorithms for bias towards the gender binary?
+    What tools are needed to obtain or synthesize data that covers more diverse
+    experiences of gender?
+\end{itemize}
 
-To-do
+We acknowledge that our proposed break with tradition may bring with it effort
+and difficult conversations, but these are challenges worth facing in the
+interest of scientific advancement as well as producing a fairer, more inclusive
+future.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{references.bib}

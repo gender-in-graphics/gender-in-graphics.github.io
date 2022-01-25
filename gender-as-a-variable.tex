@@ -18,7 +18,7 @@
 \affiliation{\institution{University of Toronto}}
 
 \author{Ana Dodik}
-\affiliation{\institution{Meta}}
+\affiliation{\institution{Meta Platforms}}
 
 \author{Theodore Kim}
 \affiliation{\institution{Yale University}}
@@ -38,19 +38,22 @@
 
 \maketitle
 
+\ana{I understand wanting to focus on SIGGRAPH, but I think we should consider broadening the scope to include all of visual computing research. Computer vision is \textit{especially} guilty of this.}
 
 \section{Introduction}
 
+\ana{My suggestion would be to start off with the idea that the gender binary is not only socially problematic, but also a factually incorrect and broken view of the world. Once that is established, it will be obvious why the following examples pose a problem.}
 \textit{We captured three actors: one male and two females...} \textit{We
 synthesize a [human motion] dataset for each gender...} \textit{We constraint
 the search space into [one of] the male and female spaces...} \textit{We use a
 male model whose body shape parameters are that of the average male...}
 
 References to gender can be found all throughout the Computer Graphics
-literature. Despite advancements in the understanding of gender in biology (e.g., \cite{fausto2012sex}), in the social sciences (e.g., \cite{butler2003gender}) and even in neighboring
+literature. Despite advancements in the understanding of gender \ana{and sex} in biology (e.g., \cite{fausto2012sex}), in the social sciences (e.g., \cite{butler2003gender}) and even in neighboring
 fields (e.g., \cite{keyes2021you}), we observe that the treatment of gender in our discipline
 still answers to a traditional understanding of it that excludes transgender and
 gender non-conforming people.
+\ana{I think it is crucial that we hammer in the point that the way that the average CG/CV researcher (or reviewer) thinks about gender is not scientifically accurate. Thinking about who will be reading this, I don't think just giving citations will be enough---I really think we need to include a paragraph explaining what the current academic understanding of gender and sex is. I remember that, e.g. \cite{pmid30377332} had some good arguments.}
 
 In what follows, we argue that our community's current use of gender is
 imprecise, contradictory and detrimental to our scientific integrity.
@@ -62,6 +65,8 @@ our community, but also open the door to whole new avenues of research.
 
 \section{Survey}
 
+\ana{So a small suggestion on how to make this more formal, we could indicate which type of algorithmic unfairness the different papers introduce, e.g.~\cite{FriedmanAndNissenbaum}.}
+
 Inspired by the work of \citet{keyes2018misgendering}, we conducted a survey of
 all technical papers presented at SIGGRAPH North America and SIGGRAPH Asia since
 2015 (see supplemental material). We observed references to gender routinely
@@ -71,18 +76,23 @@ explicitly as a variable, it is always as a binary one. Despite its prominence,
 gender is never given a precise definition in all the reviewed Computer Graphics
 literature, and appears to be used implicitly as a proxy for anything from body
 proportions to facial expression to voice inflection in speech.
+\ana{100\% this. When it comes to body modeling, from an algorithmic stand-point, you could want to cluster based on commonly co-occuring body features, but (binary) gender is just a bad (socially-constructed) proxy for that. Also, proxies are a thing in algo.~fairness research \cite{BigDataImpact}. I am beig told that this is apparently similar to Judith Butler's view on binary bodies in Gender Trouble?}
 
 An analysis of the above reveals worrying trends about the current use of gender
 as a variable in Computer Graphics, both scientifically and ethically. As we
 mention examples of works that perpetuate these trends, we stress that we do not
-associate any malicious intent to any. Rather, we wish to show how seemingly
+associate any malicious intent to any. \ana{Missing word?} Rather, we wish to show how seemingly
 neutral, well-established practices in our community can lead to us unwittingly
 perpetuating forms of algorithmic bias.
 
+\ana{There is something to be said about the entire ``It's just the data thats biased'' discussion we keep having in ML ad nauseam. In our examples, it's not just the data that's the root of algorithmic unfairness, it's the active decisions of algorithm designers. For practitioners this means that, even if you don't have access to, e.g.~body scans of non-binary people, you can still try to remove a part of that bias that is due to algorithm design decisions.}
+
 \section{Scientific critique}
 
+\ana{I would refrain from using the word critique. While yes, these papers are worthy of critique, it would be better to present it as an analysis?}
+
 In our strive towards producing precise, high-quality reproducible research, we
-should be careful about using only clearly defined variables of study. However,
+should be careful about using \ana{to use} only clearly defined variables of study \ana{"of study" confuses me}. However,
 our survey shows gender to be widely used yet undefined in our literature.
 
 In doing this, we are effectively asking our readers and fellow researchers to
@@ -90,8 +100,9 @@ project their common-knowledge understanding of gender to be able to read and
 reproduce our results. As centuries of social science teaches us
 (\silvia{citations (Amanda?)}), this understanding can vary heavily from person
 to person and culture to culture. Thus, different researchers will interpret and
-implement our algorithms differently, impeding the advance of our science.
+implement our algorithms differently, impeding the advance of our science. \ana{Hmm, I honestly think the problem is that researchers share the same, but very biased view of gender.}
 
+\ana{The use of "defined" and "undefined variable" will lead to anyone who is reading this having to Google "what's an undefined variable again?"}
 This use of gender as an undefined variable is even more detrimental when
 different understandings of gender are conflated, thereby biasing algorithms
 towards grouping certain independent attributes together. To use a very
@@ -100,7 +111,7 @@ group of people who generally are shorter \emph{and} have longer hair, and
 \emph{male} to refer to those taller \emph{and} with shorter hair. The use of
 this poorly-defined variable means that the statistical distributions of hair
 length and height are being artificially linked together, biasing the algorithm
-against including shorter humans with short hair, and viceversa.
+against including shorter humans with short hair, and viceversa. \ana{Great point. However, human parametric models don't really include hair, so we should find something similar, e.g. hip/shoulder width or the presence or absence of breasts?}
 
 We found examples of this bias throughout the literature: voice modification
 algorithms may conflate voice pitch with culturally-acquired speech inflections
@@ -119,11 +130,40 @@ Thus, these limitations should be discussed as such so that they do not
 unwittingly permeate through the literature and so that others can work on
 eliminating them.
 
+\ana{I think, at its core, this is an algorithmic fairness paper, and I think we will make a stronger point if we look at it through that lens. For example, this paragraph makes decent points, but I think it is very helpful do disambiguate between the different types of biases that exist.}
+
+\ana{When defining a task, a paper can introduce certain problems in feature selection and target variable definition:
+\begin{itemize}
+    \item Usage of proxies, both as features and as target variables---e.g.~some papers use ``gender'' to mean ``comonly co-occuring bodily characteristics'', or ``gender expression''.
+    \item Discretization of variables---some (all? really?!) papers will split all people up in exactly two boxes.
+    \item Omitted variable bias---the success of using ``gender'' as a feature is overemphasized because it correlates with some other important feature which has been left out of the modeling stage (e.g. long hair).
+\end{itemize}.}
+
+\ana{Different papers also introduce problems related to data collection:
+\begin{itemize}
+    \item Sample selection bias---not including any gender-diverse people in your dataset.
+    \item Encoding existing prejudice---in our society, gender expression is often conflated with gender, and an algorithm might just learn that "long hair" means woman, and "really tall" means man.
+    \item Measurement bias---e.g. getting third parties to ``label'' people's gender from images.
+\end{itemize}}
+
+\ana{Different papers also introduce problems in the algorithm design:
+\begin{itemize}
+    \item E.g. the choice of objective function---using a regularizer that makes sure to regress to an ``average'' body can create problems.
+\end{itemize}}
+
+\ana{Lastly, different methods can also unknowingly introduce ``impact'' unfairness, i.e. the unfairness that is introduced by designers as a response to the model being tested and deployed in the real world:
+\begin{itemize}
+    \item Feedback loops---e.g. if gender-diverse people have poor experiences clothing recommender systems, they are less likely to use them. As a consequence, companies offering those systems will have less data on how their systems impact gender-diverse people. Therefore, they will continue to improve their systems for the population using their systems, possibly at the further detrement of gender-diverse people.
+    \item Nudging people in different directions---e.g. a trans person might need to artificially change their voice pitch in order to not get misgendered by a voice recognition system.
+\end{itemize}}
+
 \section{Ethical critique}
+
+\ana{I wonder if a section title such as "Real World Impact" wouldn't be better?}
 
 As scientific researchers, we must be aware of the effect that our arbitrary
 modelling decisions have in the real world as our algorithms are used by
-governments and private companies. 
+governments and private companies.
 
 Since many people's gender experiences fall outside the male/female binary, our
 research's insistence on it can contribute to frustration (at best) and
@@ -133,7 +173,7 @@ female body proportions leads to airport body scanners that routinely subject
 transgender passangers to humilliation (see \cite{tsa}). A modelling choice to
 conflate body proportions with choices in attire ironically excludes precisely
 the people with non-normative bodies who are the most in danger in traditional
-physical changing rooms (see e.g., \cite{changingroom}). 
+physical changing rooms (see e.g., \cite{changingroom}). \ana{lol please explain this to my tech lead...}
 
 
 These negative effects are compounded even further as our algorithms are being
@@ -158,16 +198,15 @@ photorrealistic character modeller by \citet{metahuman} has no mention of
 gender; \citet{googlegender} removed all gender references from its Cloud Vision
 API; video games as diverse as \emph{Animal Crossing: New Horizons},
 \emph{Cyberpunk 2077} and \emph{Forza Horizon 5} completely decouple attributes
-like hairstyle, body proportions, voice pitch and prononouns from one another.
+like hairstyle, body proportions, voice pitch and prononouns from one another. \ana{I am \textit{very} against including Cyberpunk as a positive example of anything gender-related.}
 
 Finally, the current use of gender in the Computer Graphics literature creates a
 hostile environment for gender non-conforming members of our research community,
 which goes against ACM SIGGRAPH's goal to be \emph{a model of inclusion, equity,
-access and diversity for all}: by seeing colleagues and collaborators
-consistently exclude us from their own research work, we are (willingly or not)
+access and diversity for all}: \ana{I would end the sentence here. Also, the previous sentence might be good to include in the abstract or as one of the very first sentences.} by seeing colleagues and collaborators
+consistently exclude us \ana{us $\rightarrow$ gender-diverse people} from their own research work, we are (willingly or not)
 sent the message that we do not belong in this research community, encouraging
 us to look for jobs elsewhere.
-
 
 \section{Where do we go from here?}
 

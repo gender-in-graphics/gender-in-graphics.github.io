@@ -1,10 +1,10 @@
 \PassOptionsToPackage{table}{xcolor}
-\documentclass[sigconf,review,balance=false]{acmart}
+\documentclass[nonacm,sigconf,review,balance=false]{acmart}
 \setcopyright{none}
 \citestyle{acmauthoryear}
 \setcitestyle{square}
 
-\setcopyright{acmcopyright}
+\setcopyright{none}
 \acmConference[Under Review]{Under Review}{Under Review}{Online} \acmYear{2021}
 \acmDOI{nnn.nnn}
 
@@ -13,7 +13,7 @@
 
 \begin{document}
 
-\title{Gender in the Computer Graphics research literature}
+\title{Gender and Sex in the Computer Graphics research literature}
 
 \author{Ana Dodik}\authornote{Joint First Authors}
 \affiliation{\institution{Meta Platforms}}
@@ -30,9 +30,9 @@
 
 
 \begin{abstract}
-    We survey the treatment of gender in the Computer Graphics research
+    We survey the treatment of sex and gender in the Computer Graphics research
     literature and its scientific and real-world consequences. We conclude
-    current trends on the use of gender in our research community constitute a
+    current trends on the use of gender in our research community are scientifically incorrect and constitute a
     form of algorithmic bias with harmful effects. We propose ways for
     correcting these trends and pose novel research questions.
 \end{abstract}
@@ -40,26 +40,20 @@
 
 \maketitle
 
-\ana{I understand wanting to focus on SIGGRAPH, but I think we should consider broadening the scope to include all of visual computing research. Computer vision is \textit{especially} guilty of this.}
+%\ana{I understand wanting to focus on SIGGRAPH, but I think we should consider broadening the scope to include all of visual computing research. Computer vision is \textit{especially} guilty of this.}
 
 \section{Introduction}
 
-\ana{My suggestion would be to start off with the idea that the gender binary is not only socially problematic, but also a factually incorrect and broken view of the world. Once that is established, it will be obvious why the following examples pose a problem.}
-\textit{We captured three actors: one male and two females...} \textit{We
-synthesize a [human motion] dataset for each gender...} \textit{We constraint
-the search space into [one of] the male and female spaces...} \textit{We use a
-male model whose body shape parameters are that of the average male...}
+References to sex and gender can be found all throughout the Computer Graphics research literature: a dataset is said to contain images of men and women, user study participants are reported to have a certain male/female proportion, a body modeling algorithm trains two different gendered models, a voice modification method is said to work on male and female voices, etc. 
 
-References to gender can be found all throughout the Computer Graphics
-literature. Despite advancements in the understanding of gender \ana{and sex} in biology (e.g., \cite{fausto2012sex}), in the social sciences (e.g., \cite{butler2003gender}) and even in neighboring
-fields (e.g., \cite{keyes2021you}), we observe that the treatment of gender in our discipline
-still answers to a traditional understanding of it that excludes transgender and
-gender non-conforming people.
-\ana{I think it is crucial that we hammer in the point that the way that the average CG/CV researcher (or reviewer) thinks about gender is not scientifically accurate. Thinking about who will be reading this, I don't think just giving citations will be enough---I really think we need to include a paragraph explaining what the current academic understanding of gender and sex is. I remember that, e.g. \cite{pmid30377332} had some good arguments.}
+The scientific consensus around the concepts of sex and gender has greatly evolved in the past decades (see, e.g., \cite{pmid30377332}). As surveyed by \citet{fausto2012sex}, \emph{sex} is not one but a combination of many biological classifications (\emph{chromosomal sex, hormonal sex, reproductive sex, ...}) which cannot be unambiguously assigned in a binary way to as much as one in 50 people \cite{blackless2000sexually}. 
+\emph{Gender}, on the other hand, is used to refer to an individual's self-identity \cite{money1972man}, their performance of certain acts \cite{butler2003gender} or arbitrary social organizational structures that segregate people in different public bathrooms and even decide who is eligible to vote or hold political office \cite{lorber1994paradoxes}. By all these contemporary definitions, gender is non-binary, fluid and culturally-specific. Furthermore, assuming outdated binary definitions of sex and gender is not just scientifically incorrect, but can also be shown to be harmful to those who conform the least to this artificial binary \cite{un2015report}.
 
-In what follows, we argue that our community's current use of gender is
+Despite this, we observe that the treatment of sex and gender in Computer Graphics research
+still answers to a traditional binary understanding of it that excludes intersex and many transgender and
+gender non-conforming people. We argue that our community's current use of gender is
 imprecise, contradictory and detrimental to our scientific integrity.
-We examine the harmful real-world consequences of our modeling
+We examine the harmful real-world consequences of the algorithmic bias introduced by our modeling
 choices with respect to gender on how gender non-conforming people interact with
 our technology in their daily lives. We advocate for reexamining our
 treatment of gender and show that this will not only correct worrying trends in

@@ -114,6 +114,8 @@ this poorly-defined variable means that the statistical distributions of hair
 length and height are being artificially linked together, biasing the algorithm
 against including shorter humans with short hair, and viceversa. \ana{Great point. However, human parametric models don't really include hair, so we should find something similar, e.g. hip/shoulder width or the presence or absence of breasts?}
 
+\ana{SMPL has a "gender-free" variant but it only uses that one if it doesn't have enough confidence you're a man or a woman. Imagine being a trans woman and the algorithm telling you "we cannot detect that you are a woman so we're ignoring your gender".}
+
 We found examples of this bias throughout the literature: voice modification
 algorithms may conflate voice pitch with culturally-acquired speech inflections
 under the umbrella of gender, virtual garment try-on methods can merge a

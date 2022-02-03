@@ -12,7 +12,7 @@
 \newcommand{\reffig}[1]{Figure~\ref{fig:#1}}
 \newcommand{\refsec}[1]{Section~\ref{sec:#1}}
 \newcommand{\silvia}[1]{{\bf\textcolor[rgb]{0.9,0.6,0.6}{Silvia: #1}}}
-\newcommand{\ana}[1]{{\bf\textcolor[rgb]{0.6,0.6,0.9}{Ana: #1}}}
+\newcommand{\ana}[1]{{\textbf{\textcolor[rgb]{0.6,0.6,0.9}{Ana: #1}}}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Characters
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -107,7 +107,7 @@
 % Line widths and font sizes
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{layouts}
-\makeatletter 
+\makeatletter
 % \layoutdetails will insert a table listing the layout sizes and fonts in use
 \newcommand{\layoutdetails}{%
 \begin{tabular}{ll}
@@ -117,4 +117,4 @@ Main text font &  \f@size pt \f@family \\
 \sffamily \small Caption text font &  \sffamily \small \f@size pt \f@family \\
 \end{tabular}%
 }
-\makeatother 
+\makeatother

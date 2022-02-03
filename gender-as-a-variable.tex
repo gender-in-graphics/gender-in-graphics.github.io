@@ -114,7 +114,9 @@ In our discussion, we apply a framework which disambiguates and categorizes diff
     \item An \emph{incorrect} method of measurement. An example of this would be works which use data labelers to ``label'' people's gender from images, instead of letting the individuals self-identify. Again, algorithmic bias occurs in this situation, even if special care is taken to collect images of gender-diverse individuals.
 \end{itemize}.
 
-\paragraph*{Aggregation bias} \ana{I need help on this one... Cannot think of any examples}
+\paragraph*{Aggregation bias} \ana{I need help on this one, since I cannot think of any examples. From the survey paper: ``Aggregation bias (or ecological fallacy) arises when false conclusions are drawn about individuals from observing the entire population. An example of this type of bias can be seen in clinical aid tools. Consider diabetes patients who have apparent morbidity differences across ethnicities and genders.
+Specifically, HbA1c levels, that are widely used to diagnose and monitor diabetes, differ in complex ways across genders and ethnicities. Therefore, a model that ignores individual differences will likely not be well-suited for all ethnic and gender groups in the population.
+This is true even when they are represented equally in the training data. Any general assumptions about subgroups within the population can result in aggregation bias.''}
 
 \paragraph*{Learning bias} Algorithm designers will often unknowingly introduce bias into their methods. For example, using a regularizer that makes sure to regress to an ``average'' body is likely to make the algorithm worse for people far away from the average. Alternatively, optimizing for a model's accuracy might lead to the statistical pairity decreasing accross different groups.
 
@@ -130,7 +132,7 @@ In our discussion, we apply a framework which disambiguates and categorizes diff
 
 \paragraph*{Omitted variable bias} Omitted vairable bias occurs when the success of using a certain feature is overemphasized because it correlates with another important feature that has been omitted from the modeling stage. For example, ``gender'' is likely not as discriminative as a variable when the result is also conditioned on ``hair length'', or ``hip width''. Alternatively, a voice modification algorithm may attribute its performance to gender, rather than a combination of pitch and certain socially-acquired speech inflections. \ana{cite paper that introduces this concept because it's not \cite{Suresh2021}.}
 
-\ana{I don't know where to fit this: a proposed new conversational agent might learn a correlation between a person's visual appearance and certain traits they exhibit in non-verbal communication. Thoughts?}
+\ana{I don't know where to fit this: a proposed new conversational agent might learn a correlation between a person's visual appearance and certain traits they exhibit in non-verbal communication. Suggestions?}
 
 In general, we have found the gender-related language to be imprecise, which hinders the clarity of the presentation. Oftentimes, we found that \emph{gender} and \emph{sex} are used seemingly interchangebly, and most of the times it is not even clear from context which one the authors intended to use. In fact, we argue that it is impossible to know a-priori if a trained model has picked up on \emph{gender} characteristics, and not on the characteristics of \emph{sex} or \emph{gender expression}, without looking at algorithmic fairness metrics accross different subgroups.
 
@@ -144,7 +146,6 @@ However, we argue that the problems introduced in these methods are not only pot
 
 \subsection{Real world harm}
 
-\ana{I wonder if a section title such as "Real World Impact" wouldn't be better?}
 \ana{Disambiguate between allocative and representational manifestation of harms, Barocas et al.}
 \ana{The mental model for data collection should not be ``we need samples from $N$ people'', rather it should be ``we need samples from $m \times k \approx n$ people, such that each of the $k$ groups of $m$ people happen to be representative of a certain protected characteristic''.}
 \ana{We argue that discussions around algorithmic fairness need to become front-and-center within our own community, instead of being relegated to other venues or "future work".}

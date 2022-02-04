@@ -44,9 +44,9 @@
 
 \section{Introduction}
 
-References to sex and gender can be found all throughout the Computer Graphics research literature: a dataset is said to contain images of men and women, user study participants are reported to have a certain male/female ratio, a body modeling algorithm trains two different gendered models, a voice modification method is said to work on male and female voices, etc. 
+References to sex and gender can be found all throughout the Computer Graphics research literature: a dataset is said to contain images of men and women, user study participants are reported to have a certain male/female ratio, a body modeling algorithm trains two different gendered models, a voice modification method is said to work on male and female voices, etc.
 
-The scientific consensus around the concepts of sex and gender has greatly evolved in the past decades (see, e.g., \cite{pmid30377332}). As surveyed by \citet{fausto2012sex}, \emph{sex} is not one but a combination of many biological classifications (\emph{chromosomal sex, hormonal sex, reproductive sex, ...}) which cannot be unambiguously assigned in a binary way to as much as one in 50 people \cite{blackless2000sexually}. 
+The scientific consensus around the concepts of sex and gender has greatly evolved in the past decades (see, e.g., \cite{pmid30377332}). As surveyed by \citet{fausto2012sex}, \emph{sex} is not one but a combination of many biological classifications (\emph{chromosomal sex, hormonal sex, reproductive sex, ...}) which cannot be unambiguously assigned in a binary way to as much as one in 50 people \cite{blackless2000sexually}.
 \emph{Gender}, on the other hand, is used to refer to an individual's self-identity \cite{money1972man}, their performance of certain acts \cite{butler2003gender} or arbitrary social organizational structures that segregate people in different public bathrooms and even decide who can access education or participate in public life \cite{lorber1994paradoxes}. By all these contemporary definitions, gender is non-binary, fluid and culturally-specific. Furthermore, assuming outdated binary definitions of sex and gender is not just scientifically incorrect, but can also be shown to be harmful to those who conform the least to this artificial binary \cite{un2015report}.
 
 Despite this, we observe that the treatment of sex and gender in Computer Graphics research
@@ -140,60 +140,33 @@ However, we argue that the problems introduced in these methods are not only pot
 
 \subsection{Real world harm}
 
-\ana{Disambiguate between allocative and representational manifestation of harms, Barocas et al.}
+The discussed technical limitations of the reviewed algorithms are not only academic in nature, but can and do lead to real world harm. The algorithmic fairness literature disambiguates between allocative and representational harms \ana{cite}.
+
+Representational harms encompas the perpetuation of harmful stereotypes or cultural norms that subject individuals to denegration. For example, it is well documented that airport body scanners routinely subject transgender passangers to public humilliation \cite{tsa}.
+
+On the other hand, allocative harms are caused when a certain groups are denied access to an opportunity or a resource because of algorithmic bias. For example, a virtual try-on experience  might accidentally exclude precisely the people with non-normative bodies who are most in danger in traditional physical changing rooms \cite{changingroom}.
+
+Furthermore, computer graphics is being increasingly applied to other fields, such as for processing geometric data in medicine, or for synthetic dataset generation in computer vision with numerous downstream applications \cite{cars, chen2021synthetic, dhs}. Therefore, it is paramount to understand that our algorithms can and will be used in novel ways potentially causing harm in ways we did not intend.
+
+Finally, the current use of gender in the Computer Graphics literature creates an alianating and exclusionary environment for gender-diverse members of our research community, going directly against ACM SIGGRAPH's goal to be \emph{a model of inclusion, equity, access and diversity for all}.
+
+\section{Where do we go from here?}
+
 \ana{The mental model for data collection should not be ``we need samples from $N$ people'', rather it should be ``we need samples from $m \times k \approx n$ people, such that each of the $k$ groups of $m$ people happen to be representative of a certain protected characteristic''.}
 \ana{We argue that discussions around algorithmic fairness need to become front-and-center within our own community, instead of being relegated to other venues or "future work".}
 \ana{People, measure your bias!}
 \ana{IT IS NOT NECESSARY TO USE GENDER AS A VARIABLE.}
 
-As scientific researchers, we must be aware of the effect that our arbitrary
-modelling decisions have in the real world as our algorithms are used by
-governments and private companies.
-
-Since many people's gender experiences fall outside the male/female binary, our
-research's insistence on it can contribute to frustration (at best) and
-discrimination (at worst) when they interact with technology. A researcher's
-seemingly inocuous decision to use different search spaces for fitting male and
-female body proportions leads to airport body scanners that routinely subject
-transgender passangers to humilliation (see \cite{tsa}). A modelling choice to
-conflate body proportions with choices in attire ironically excludes precisely
-the people with non-normative bodies who are the most in danger in traditional
-physical changing rooms (see e.g., \cite{changingroom}). \ana{lol please explain this to my tech lead...}
-
-
-These negative effects are compounded even further as our algorithms are being
-used to generate synthetic datasets on which to train Machine Learning
-algorithms outside of our research area. If we do not examine and properly
-report our algorithm's limitations in representing people outside of the gender
-binary, these can later be used to train autonomous vehicles to detect
-pedestrians (\cite{cars}), medical diagnosing tools (\cite{chen2021synthetic})
-and even security threat detection (\cite{dhs}).
-
-Furthermore, as Computer Graphics researchers, we must consider our role in
-shaping whose stories get to be told and who gets to seem themselves represented
-in the entertainment culture. By conflating different attributes under the
-umbrella of gender, we exclude gender non-conforming individuals from every
-videogame and movie created using our tool, further invisibilizing
-already-invisible and marginalized communities.
-
-It bears mentioning that our research community's entrenchment in the
+\ana{This paragraph might be better suited for this section: It bears mentioning that our research community's entrenchment in the
 traditional gender binary is a rare example of Computer Graphics research
 lagging behind the needs of our partner industries. \emph{Metahuman}, the latest
 photorrealistic character modeller by \citet{metahuman} has no mention of
 gender; \citet{googlegender} removed all gender references from its Cloud Vision
-API; video games as diverse as \emph{Animal Crossing: New Horizons},
-\emph{Cyberpunk 2077} and \emph{Forza Horizon 5} completely decouple attributes
-like hairstyle, body proportions, voice pitch and prononouns from one another. \ana{I am \textit{very} against including Cyberpunk as a positive example of anything gender-related.}
+API; video games as diverse as \emph{Animal Crossing: New Horizons},and \emph{Forza Horizon 5} completely decouple attributes
+like hairstyle, body proportions, voice pitch and prononouns from one another.}
 
-Finally, the current use of gender in the Computer Graphics literature creates a
-hostile environment for gender non-conforming members of our research community,
-which goes against ACM SIGGRAPH's goal to be \emph{a model of inclusion, equity,
-access and diversity for all}: \ana{I would end the sentence here. Also, the previous sentence might be good to include in the abstract or as one of the very first sentences.} by seeing colleagues and collaborators
-consistently exclude us \ana{us $\rightarrow$ gender-diverse people} from their own research work, we are (willingly or not)
-sent the message that we do not belong in this research community, encouraging
-us to look for jobs elsewhere.
+\ana{This might also be better for the conclusion: As Computer Graphics researchers, we must consider our role in shaping whose stories get to be told and who gets to seem themselves represented in the entertainment culture.}
 
-\section{Where do we go from here?}
 
 We believe the reasons above to be enough to make us reevaluate the role of
 gender in our community's scientific literature.

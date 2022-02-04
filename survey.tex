@@ -1,19 +1,42 @@
 \PassOptionsToPackage{table}{xcolor}
-\documentclass[acmtog,nonacm,review,balance=false]{acmart}
+\documentclass[nonacm,sigconf,review,balance=false]{acmart}
+\setcopyright{none}
 \citestyle{acmauthoryear}
 \setcitestyle{square}
 
+\setcopyright{none}
+\acmConference[Under Review]{Under Review}{Under Review}{Online} \acmYear{2021}
+\acmDOI{nnn.nnn}
+
+\settopmatter{authorsperrow=4}
 \input{common-preamble}
 
 \begin{document}
 
-\title{Gender in SIGGRAPH Technical Papers, 2015-2021}
+\title{Supplemental Material \\
+\Large{Gender and Sex in the Computer Graphics research literature}}
 
-\author{Silvia Sell\'{a}n} \affiliation{\institution{University of Toronto}}
+\author{Ana Dodik}\authornote{Joint First Authors}
+\affiliation{\institution{Meta Platforms}}
 
-\begin{abstract}
-\end{abstract}
+\author{Silvia Sellán}\authornotemark[1]
+\affiliation{\institution{University of Toronto}}
 
+
+\author{Theodore Kim}
+\affiliation{\institution{Yale University}}
+
+\author{Amanda Phillips}
+\affiliation{\institution{Georgetown University}}
+
+
+%\begin{abstract}
+%    We survey the treatment of sex and gender in the Computer Graphics research
+%    literature and its scientific and real-world consequences. We conclude
+%    current trends on the use of gender in our research community are scientifically incorrect and constitute a
+%    form of algorithmic bias with harmful effects. We propose ways for
+%    correcting these trends and pose novel research questions.
+%\end{abstract}
 
 \maketitle
 
@@ -22,26 +45,16 @@
 We reviewed all technical papers published on ACM Transactions on Graphics and
 presented at either of the North American or Asian editions of SIGGRAPH between
 January 2015 and December 2021, and recorded all of those that contained
-explicit mentions of gender.
-
-For each paper containing an explicit mention of gender, we annotated the type
-of variable used to represent it ("binary", "non-binary" or "unclear"), its
-definition given or implied in the paper (e.g., self-identification, voice
-pitch, body proportions) and its use or uses in the paper (whether as a
-parameter in the main proposed algorithm, as demographic information of user
-study participants, etc.).
+explicit mentions of sex or gender.
 
 \section{Observations}
 
-We compiled a total of 63 technical papers that mentioned gender explicitly. Our
-main observations are recorded below:
 \begin{enumerate}
-    \item 45 papers (71\%) represented gender as a binary variable, and 18
-    (29\%) do not specify the type of representation used. None of the reviewed
-    papers represented gender explicitly as a non-binary variable.
-    \item 20 papers mention gender as a parameter in an algorithm, 19 papers (30\%) mentioned gender as demographic information reported
-    about their user study participants, 19 (30\%) did so as demographic composition of their dataset and 8 as demographic information about their test set.
-    \item While no paper explictly defines their understanding of gender, some implicitly use it to refer to body 
+    \item discrete binary variable: no mention of non-binary people
+    \item observed works never mention the existence of gender-non-conforming people and we found no work that explicitly attempted to correct the effect of them being underrepresented in comparison to gender conforming people.
+    \item when gender appears as a feature or target variable in an algorithm, it is always as a proxy, but what it is a proxy of varies through the literature: . Furthermore, some papers combine several proxies into one.
+    \item observed works that propose gender classifiers and/or used annotated gender data
+    \item user studies with unknown option
 \end{enumerate}
 
 \end{document}

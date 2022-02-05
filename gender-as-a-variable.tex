@@ -31,7 +31,7 @@
 
 \begin{abstract}
     We survey the treatment of sex and gender in the Computer Graphics research
-    literature and its scientific and real-world consequences. We conclude
+    literature from an algorithmic fairness perspective. We conclude
     current trends on the use of gender in our research community are scientifically incorrect and constitute a
     form of algorithmic bias with harmful effects. We propose ways for
     correcting these trends and pose novel research questions.
@@ -51,11 +51,11 @@ The scientific consensus around the concepts of sex and gender has greatly evolv
 
 Despite this, we observe that the treatment of sex and gender in Computer Graphics research
 still answers to a traditional binary understanding of it that excludes intersex and many transgender and
-gender non-conforming people. We argue that our community's current use of gender is
+gender non-conforming people. In what follows, we will use an algorithmic fairness perspective to argue that our community's current use of gender is
 imprecise, contradictory and detrimental to our scientific integrity.
-We examine the harmful real-world consequences of the algorithmic bias introduced by our modeling
+We will examine the harmful real-world consequences of the algorithmic bias introduced by our modeling
 choices with respect to gender on how gender non-conforming people interact with
-our technology in their daily lives. We advocate for reexamining our
+our technology in their daily lives. We will advocate for reexamining our
 treatment of gender and show that this will not only correct worrying trends in
 our community, but also open the door to whole new avenues of research.
 
@@ -65,11 +65,10 @@ our community, but also open the door to whole new avenues of research.
 
 Inspired by the work of \citet{keyes2018misgendering}, we conducted a survey of
 all technical papers presented at SIGGRAPH North America and SIGGRAPH Asia since
-2015 (see supplemental material). We observed references to gender routinely
+2015 (see \emph{Supplemental Material}). We observed references to gender routinely
 throughout, varying in nature from demographic information reported about user
 study participants to gender-specific algorithms. Whenever gender is used
-explicitly as a variable, it is always as a binary one. Despite its prominence,
-gender is never given a precise definition in all the reviewed Computer Graphics
+explicitly as a variable, it is always as a binary one. Gender is never given a precise definition in all the reviewed Computer Graphics
 literature, and appears to be used implicitly as a proxy for anything from body
 proportions to facial expression to voice inflection in speech.
 %\ana{100\% this. When it comes to body modeling, from an algorithmic stand-point, you could want to cluster based on commonly co-occuring body features, but (binary) gender is just a bad (socially-constructed) proxy for that. Also, proxies are a thing in algo.~fairness research \cite{BigDataImpact}. I am beig told that this is apparently similar to Judith Butler's view on binary bodies in Gender Trouble?}
@@ -85,52 +84,87 @@ perpetuating forms of algorithmic bias.
 
 \section{Algorithmic Fairness Analysis}
 
-Our literature survey demonstrates that the current use of gender in the computer graphics literature is at best ill-defined, and at worst incorrect. In this Section, we demonstrate through various examples why such an approach causes a number of \emph{technical} issues within the surveyed works, and is, as such, at odds with producing precise and high-quality reproducible research.
+Our survey shows that the current use of gender in the Computer Graphics literature is at best ill-defined, and at worst incorrect. 
+In this section, 
+%we demonstrate through various examples why such an approach causes a number of \emph{technical} issues that put it at odds with producing precise, high-quality and reproducible research.
+we apply the framework of \citet{Suresh2021}, which categorizes different types of bias according to the stages of a system's lifecycle. 
+%While \citet{Suresh2021} focus on machine learning, we find their methodology to be equally applicable to general problems in Computer Graphics. 
+We give examples of how different types of bias occur throughout our surveyed work and show that these are \emph{technical} limitations that impede our community's goal of producing precise, high-quality and reproducible research.
 
-In our discussion, we apply a framework which disambiguates and categorizes different types of bias according to the stages of a system's lifecycle \cite{Suresh2021}. Note that while the original paper focuses on machine learning, we find it to be equally applicable to general problems in computer graphics. We give concrete examples of how \emph{all} types of bias occur throughout the surveyed work.
+\paragraph*{Representation bias} A part of a population may be poorly represented by a dataset, for example, because the sampling procedure is biased not to include people of non-binary genders (\emph{sample selection bias}) or because no care is taken to ensure algorithms perform equally well in  groups of \emph{underrepresented} sex or gender. Despite the prevalence of these individuals in the general population, we could not identified a single paper (O3) that explicitly mentioned them as part of datasets (\dataset) or user study participants (\userstudy). The sampling procedure may have been accidentally designed to exclude these individuals, or it might be due to measurement bias. We did not identify any work that explicitly analyzed any type of representation bias experienced by underrepresented genders (\binary). 
+% \begin{itemize}
+%     \item \emph{Sample selection bias} occurs when the sampling procedure is biased not include non-binary people. Given the scale of the works reviewed and the reported statistics about the prevalence of such individuals, the works we reviewed should include non-binary individuals; however, we could not identify a single paper that explicitly mentioned them as part of datasets or user study participants. The sampling procedure may have been accidentally designed to exclude these individuals, or it might also be due to measurement bias.
+%     \item A dataset can lead to algorithmic unfairness if it is uniformly sampled, but \emph{contains under-represented groups}. A uniformly sampled dataset with $1000$ people is expected include between $1$ and $20$ intersex or gender non-conforming individuals. This means that the algorithms trained on this dataset are more likely to produce worse results on these individuals than in the general population. In our survey, we did not identify a single paper that acknowledged the existence of intersex and gender non-conforming people; consequently, we did not identify a single paper that explicitly attempted to correct this type of representation bias. 
+% \end{itemize}
 
-% \subsection{Task Definition and Data Unfairness}
+\paragraph*{Historical bias} Data, despite being abundant and perfectly sampled, may encode existing prejudice. For example, a \emph{gender classifier} (\classifier) trained on portrait image data collected in a society where social norms dictate gender expression might learn that ``wearing a dress'' means woman, and ``short hair'' means man. 
+
+\paragraph*{Measurement bias} Bias may be introduced through the selection and measurement of features and target variables. 
+We observed that many works use sex or gender as imprecise \emph{proxies} (\var) for attributes like \emph{commonly co-occuring bodily characteristics} or \emph{speech characteristics}, where it is possible that the authors would be better served using other less abstract features (e.g., hair length, or voice pitch). We even observed works that combine several of these proxies into one; for example,
+conversational agents that use gender to refer to both voice pitch \emph{and} culturally acquired speech inflections.
+%virtual try-on algorithms that use gender both as a proxy for body geometry \emph{and} cultural choices in attire.
+
+Furthermore, when gender was chosen as a feature or target variable, it was always (\binary) through an \emph{inaccurate method of measurement} (treating gender as a binary variable, non-binary individuals cannot be captured by design even if they are in the dataset) and often (\classifier) through an \emph{incorrect method of measurement} (using image-based gender classifiers as opposed to self-identification, transgender and non-binary individuals may be misidentified). 
+
+\paragraph*{Omitted variable bias} The success of using a certain feature may be overemphasized if it correlates with another important feature that has been omitted from the model (see e.g., \cite{clarke2005phantom}). For example, \emph{gender} is likely not as discriminative as a variable when the result is also conditioned on \emph{hair length}, \emph{hip width} or \emph{mean voice frequency}. In survey, where gender's use was justified because of an assumed improvement in model accuracy (\var), we found no effort to indentify if the success was due to omitted variables.
+
+% During our literature review, we identified the presence of the following issues:
+% \begin{itemize}
+%     \item The frequent usage of \emph{proxies}, both as features and as target variables. For example, we observed works that use \emph{sex} or \emph{gender} to mean \emph{comonly co-occuring bodily characteristics} or \emph{a set of voice attributes}.
+%     The use of \emph{sex} and \emph{gender} as proxy variables is not only harmful, but often also imprecise and inaccurate from a technical stand-point. It is quite possible that the authors would be better served using other less abstract features (e.g. hair length, or voice pitch). The imprecision can compound further when a single work combines several understandings of sex and gender; for example, we observed virtual try-on algorithms use gender both as a proxy for body parameters \emph{and} cultural choices in attire, and conversational agents use it to denote both the pitch of the agent's voice as well as cultural traits in their verbal and non-verbal communication. The usage of these variables can further lead to \emph{omitted variable bias}, which we discuss later.
+%     \item An \emph{inaccurate} method of measurement. For example, all of the papers we reviewed treat gender as a \emph{discrete binary variable}. Therefore, even if data was collected from gender-diverse participants, the method of measurement would not be able to capture that.
+%     \item An \emph{incorrect} method of measurement. We identified works that both propose and use gender labeling of image, voice and body geometry data, in many cases by automated systems or manual third parties as opposed to participant self-identification. Similarly, we observed works that report many user study participants' gender as "unknown", which may mean it is the researchers themselves who are attempting to assume their participant's gender without asking them to self-identify it. Algorithmic bias occurs in this situation, even if special care is taken to collect data of gender non-conforming individuals.
+% \end{itemize}.
+
+
+
+%\paragraph*{Aggregation bias}\silvia{to-do} \ana{I need help on this one, since I cannot think of any examples. From the survey paper: ``Aggregation bias (or ecological fallacy) arises when false conclusions are drawn about individuals from observing the entire population. An example of this type of bias can be seen in clinical aid tools. Consider diabetes patients who have apparent morbidity differences across ethnicities and genders.
+%Specifically, HbA1c levels, that are widely used to diagnose and monitor diabetes, differ in complex ways across genders and ethnicities. Therefore, a model that ignores individual differences will likely not be well-suited for all ethnic and gender groups in the population.
+% This is true even when they are represented equally in the training data. Any general assumptions about subgroups within the population can result in aggregation bias.''}
+
+%\paragraph*{Learning bias} \silvia{to-do}Algorithm designers will often unknowingly introduce bias into their methods. For example, using a regularizer that makes sure to regress to an ``average'' body is likely to make the algorithm worse for people far away from the average. Alternatively, optimizing for a model's accuracy might lead to the statistical pairity decreasing accross different groups.
+
+\paragraph*{Evaluation bias} For example, we observed works in body modeling that provide binary gender-segregated parametric models (O3). We observed these being used to evaluate \emph{other} works with contributions orthogonal to body modeling, like virtual try-on or motion capture. If the computer graphics community settles on benchmarks with biased data, the development of models that conform to those biases is encouraged.
+
+%\silvia{to-do}Evaluation bias encompases all bias that is introduced during the evaluation of an algorithm. If the computer graphics community settles on benchmarks with biased data or metrics, it creates a knock-on effect where the development and deployment of models that performed well on those benchmarks is further encouraged. This is one of the reasons it is particularly dangerous to "leave the fairness questions" for future work.
+
+% \subsection{Real world harm}
+
+% Unlike our survey, the effects of algorithmic bias do not stop at the publication stage. Rather, harm is introduced as a consequence of a model being used in the real world, known as \emph{deployment bias}.
+
+
+
+\paragraph*{Deployment bias} The effects of algorithmic bias do not stop at the publication stage; rather, harm is introduced as a consequence of a model being deployed or published in the real world. For example, the publication exclusively of papers with a binary understanding of sex and gender incentivizes researchers (and reviewers) to conform to that definition (\binary).
+This can also lead to \emph{feedback loops}: if, as we have observed, gender non-conforming people are not included in a virtual clothing try-on system, they are less likely to use them, causing the data about the performance of such a system to be skewed to include fewer gender non-conforming people. Finally, a biased system can cause further bias by nudging users to artificially change their behaviour: for example, a trans person might feel the need to change the pitch of their voice in order to not get misgendered by an algorithm, thus also skewing the collected data.
+
+\subsection{Real world harm}
+
+The discussed technical limitations of the reviewed algorithms are not only academic in nature, but can and do lead to real world harm. As Computer Graphics is being increasingly applied to other fields, such as for processing geometric data in medicine, or for synthetic dataset generation in computer vision with numerous downstream applications \cite{cars, chen2021synthetic, dhs}, it is paramount to understand that our algorithms can and will be used in novel ways potentially causing harm in ways we did not intend.
+
+The algorithmic fairness literature disambiguates between allocative and representational harms \ana{cite}.
+
+\paragraph{Allocative harms} These are caused when a certain groups are denied access to an opportunity or a resource because of algorithmic bias. For example, a virtual try-on experience based on the algorithms in our survey might accidentally exclude precisely the people with non-normative bodies who are most in danger in traditional physical changing rooms \cite{changingroom}.
+
+\paragraph*{Representational harms} These encompas the perpetuation of harmful stereotypes or cultural norms that subject individuals to denegration. For example, it is well documented that airport body scanners (which, despite their specifics being proprietary, one could imagine being trained on synthetic geometric data generated with algorithms from our survey) routinely subject transgender passangers to public humilliation \cite{tsa}.
+
+Finally, ignoring the existence of trans, non-binary and intersex individuals in our research (O3) creates an alienating and exclusionary environment for gender non-conforming members of our very own research community, going directly against SIGGRAPH's goal to be \emph{a model of inclusion, equity, access and diversity for all}.
+
+\section{Where do we go from here?}
+
+
+
+% \begin{itemize}
+%     \item Assuming an implicit definition of (e.g. binary) gender might incentivize future researchers to conform to that definition. This is additionally problematic when researchers from cultures with a different understanding of gender need to adjust to foreign cultural norms. (\ana{Amanda, I might need some help with this one.})
+%     \item Deploying an algorithm can lead to \emph{feedback loops}. For example, if gender-diverse people have poor experiences with clothing size recommender systems, they are less likely to use them. As a consequence, the data about the performance of such a system will be skewed to include fewer gender-diverse people. Using such data to further optimize the systems can lead to compounding effects.
+%     \item A deployed system can cause harm by nudging the users to artificially change their behavior. For example, a trans person might feel the need to change the pitch of their voice in order to not get misgendered by an algorithm.
+%     \item Deploying a body model which has ``male'', ``female'', and ``gender neutral'' variants might lead to unintentional harm, if, for example, the ``gender neutral'' model is used only that if the algorithm does not have enough confidence the user is either ``male'' or ``female''. This can lead to gender trans or non-confirming individuals being actiely told that they are not recognized as the gender they identify with.
+% \end{itemize}
+
+
+
+%\ana{I don't know where to fit this: a proposed new conversational agent might learn a correlation between a person's visual appearance and certain traits they exhibit in non-verbal communication. Suggestions?}
+
 \silvia{to-do}
-
-\paragraph*{Historical bias} Historical bias occurs when data encodes existing prejudice. For example, a \emph{gender classifier} trained on data collected in a society where social norms dictate gender expression might learn that ``wearing a dress'' means woman, and ``short hair'' means man, despite the data being \emph{abundant} and \emph{perfectly sampled}. 
-
-% \ana{Another possible example from Silvia: virtual garment try-on methods can merge a person's body proportions with their preference in attire. Not sure which is better to use?}
-
-\paragraph*{Representation bias} This type of bias occurs when a part of a population is poorly represented by a dataset. This can happen due to a multitude of reasons:
-\begin{itemize}
-    \item \emph{Sample selection bias} occurs when the sampling procedure is biased in such a way to not include non-binary people. Given the scale of the works reviewed and the reported statistics about the prevalence of such individuals, the works we reviewed should include non-binary individuals; however, we could not identify a single paper that explicitly mentioned them in their motion capture actors, datasets or user study participants. A possible explanation is that the sampling procedure was accidentally designed in such a way to to decrease the likelihood of capturing gender-diverse individuals, or it might also occur due to measurement bias.
-    \item A dataset can lead to algorithmic unfairness if it is uniformly sampled, but \emph{contains under-represented groups}. A uniformly sampled dataset with $1000$ people is expected include between $1$ and $20$ intersex and gender non-conforming individuals. This means that the algorithms trained on this dataset are more likely to produce worse results on these individuals than in the general population. In our survey, we did not identify a single paper that acknowledged the existence of intersex and gender non-conforming people; consequently, we did not identify a single paper that explicitly attempted to correct this type of representation bias. 
-\end{itemize}
-
-% Measurement, or reporting, bias arises from how we choose, utilize,and measure particular features.
-
-\paragraph*{Measurement bias} Measurement, or reporting bias is typically introduced during the task definition through the selection and measurement of features and target variables. During our literature review, we identified the presence of the following issues:
-\begin{itemize}
-    \item The frequent usage of \emph{proxies}, both as features and as target variables. For example, we observed works that use \emph{sex} or \emph{gender} to mean \emph{comonly co-occuring bodily characteristics} or \emph{a set of voice attributes}.
-    The use of \emph{sex} and \emph{gender} as proxy variables is not only harmful, but often also imprecise and inaccurate from a technical stand-point. It is quite possible that the authors would be better served using other less abstract features (e.g. hair length, or voice pitch). The imprecision can compound further when a single work combines several understandings of sex and gender; for example, we observed virtual try-on algorithms use gender both as a proxy for body parameters \emph{and} cultural choices in attire, and conversational agents use it to denote both the pitch of the agent's voice as well as cultural traits in their verbal and non-verbal communication. The usage of these variables can further lead to \emph{omitted variable bias}, which we discuss later.
-    \item An \emph{inaccurate} method of measurement. For example, all of the papers we reviewed treat gender as a \emph{discrete binary variable}. Therefore, even if data was collected from gender-diverse participants, the method of measurement would not be able to capture that.
-    \item An \emph{incorrect} method of measurement. We identified works that both propose and use gender labeling of image, voice and body geometry data, in many cases by automated systems or manual third parties as opposed to participant self-identification. Similarly, we observed works that report many user study participants' gender as "unknown", which may mean it is the researchers themselves who are attempting to assume their participant's gender without asking them to self-identify it. Algorithmic bias occurs in this situation, even if special care is taken to collect data of gender non-conforming individuals.
-\end{itemize}.
-
-\paragraph*{Aggregation bias}\silvia{to-do} \ana{I need help on this one, since I cannot think of any examples. From the survey paper: ``Aggregation bias (or ecological fallacy) arises when false conclusions are drawn about individuals from observing the entire population. An example of this type of bias can be seen in clinical aid tools. Consider diabetes patients who have apparent morbidity differences across ethnicities and genders.
-Specifically, HbA1c levels, that are widely used to diagnose and monitor diabetes, differ in complex ways across genders and ethnicities. Therefore, a model that ignores individual differences will likely not be well-suited for all ethnic and gender groups in the population.
-This is true even when they are represented equally in the training data. Any general assumptions about subgroups within the population can result in aggregation bias.''}
-
-\paragraph*{Learning bias} \silvia{to-do}Algorithm designers will often unknowingly introduce bias into their methods. For example, using a regularizer that makes sure to regress to an ``average'' body is likely to make the algorithm worse for people far away from the average. Alternatively, optimizing for a model's accuracy might lead to the statistical pairity decreasing accross different groups.
-
-\paragraph*{Evaluation bias} \silvia{to-do}Evaluation bias encompases all bias that is introduced during the evaluation of an algorithm. If the computer graphics community settles on benchmarks with biased data or metrics, it creates a knock-on effect where the development and deployment of models that performed well on those benchmarks is further encouraged. This is one of the reasons it is particularly dangerous to "leave the fairness questions" for future work.
-
-\paragraph*{Deployment bias}\silvia{to-do} Deployment bias refers to the harm that is introduced as a consequence of the model being published or deployed in the real world:
-\begin{itemize}
-    \item Assuming an implicit definition of (e.g. binary) gender might incentivize future researchers to conform to that definition. This is additionally problematic when researchers from cultures with a different understanding of gender need to adjust to foreign cultural norms. (\ana{Amanda, I might need some help with this one.})
-    \item Deploying an algorithm can lead to \emph{feedback loops}. For example, if gender-diverse people have poor experiences with clothing size recommender systems, they are less likely to use them. As a consequence, the data about the performance of such a system will be skewed to include fewer gender-diverse people. Using such data to further optimize the systems can lead to compounding effects.
-    \item A deployed system can cause harm by nudging the users to artificially change their behavior. For example, a trans person might feel the need to change the pitch of their voice in order to not get misgendered by an algorithm.
-    \item Deploying a body model which has ``male'', ``female'', and ``gender neutral'' variants might lead to unintentional harm, if, for example, the ``gender neutral'' model is used only that if the algorithm does not have enough confidence the user is either ``male'' or ``female''. This can lead to gender trans or non-confirming individuals being actiely told that they are not recognized as the gender they identify with.
-\end{itemize}
-
-\paragraph*{Omitted variable bias} Omitted vairable bias occurs when the success of using a certain feature is overemphasized because it correlates with another important feature that has been omitted from the modeling stage. For example, ``gender'' is likely not as discriminative as a variable when the result is also conditioned on ``hair length'', or ``hip width''. Alternatively, a voice modification algorithm may attribute its performance to gender, rather than a combination of pitch and certain socially-acquired speech inflections. \ana{cite paper that introduces this concept because it's not \cite{Suresh2021}.}
-
-\ana{I don't know where to fit this: a proposed new conversational agent might learn a correlation between a person's visual appearance and certain traits they exhibit in non-verbal communication. Suggestions?}
 
 In general, we have found the gender-related language to be imprecise, which hinders the clarity of the presentation. Oftentimes, we found that \emph{gender} and \emph{sex} are used seemingly interchangebly, and most of the times it is not even clear from context which one the authors intended to use. In fact, we argue that it is impossible to know a-priori if a trained model has picked up on \emph{gender} characteristics, and not on the characteristics of \emph{sex} or \emph{gender expression}, without looking at algorithmic fairness metrics accross different subgroups.
 
@@ -142,17 +176,6 @@ Algorithmic fairness evaluations and discussions are left out of computer graphi
 
 However, we argue that the problems introduced in these methods are not only potentially harmful to under-represented populations, but also often \emph{technically limited ways which are not well researched}. If a method cannot model a class of humans by design, or if a production system fails for a subsection of the population, these are fundamental \emph{technical} limitations. The question is then, why does our community prioritize solving these limitations disproportionatly less then other technical problems?
 
-\subsection{Real world harm}
-
-The discussed technical limitations of the reviewed algorithms are not only academic in nature, but can and do lead to real world harm. The algorithmic fairness literature disambiguates between allocative and representational harms \ana{cite}.
-
-Representational harms encompas the perpetuation of harmful stereotypes or cultural norms that subject individuals to denegration. For example, it is well documented that airport body scanners routinely subject transgender passangers to public humilliation \cite{tsa}.
-
-On the other hand, allocative harms are caused when a certain groups are denied access to an opportunity or a resource because of algorithmic bias. For example, a virtual try-on experience  might accidentally exclude precisely the people with non-normative bodies who are most in danger in traditional physical changing rooms \cite{changingroom}.
-
-Furthermore, computer graphics is being increasingly applied to other fields, such as for processing geometric data in medicine, or for synthetic dataset generation in computer vision with numerous downstream applications \cite{cars, chen2021synthetic, dhs}. Therefore, it is paramount to understand that our algorithms can and will be used in novel ways potentially causing harm in ways we did not intend.
-
-Finally, the current use of gender in the Computer Graphics literature creates an alianating and exclusionary environment for gender-diverse members of our research community, going directly against ACM SIGGRAPH's goal to be \emph{a model of inclusion, equity, access and diversity for all}.
 
 \section{Where do we go from here?}
 

@@ -71,6 +71,13 @@
 \providecommand{\z}{}
 % Now can just use renewcommand
 
+\renewcommand{\binary}{O1}
+\newcommand{\unspecified}{O2}
+\newcommand{\var}{O4}
+\newcommand{\dataset}{O5}
+\newcommand{\userstudy}{O6}
+\newcommand{\classifier}{O7}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -117,4 +124,7 @@ Main text font &  \f@size pt \f@family \\
 \sffamily \small Caption text font &  \sffamily \small \f@size pt \f@family \\
 \end{tabular}%
 }
+
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
 \makeatother

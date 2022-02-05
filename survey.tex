@@ -3,7 +3,8 @@
 \setcopyright{none}
 \citestyle{acmauthoryear}
 \setcitestyle{square}
-
+\usepackage[shortlabels]{enumitem}
+\usepackage{multirow}
 \setcopyright{none}
 \acmConference[Under Review]{Under Review}{Under Review}{Online} \acmYear{2021}
 \acmDOI{nnn.nnn}
@@ -43,18 +44,172 @@
 \section{Methodology}
 
 We reviewed all technical papers published on ACM Transactions on Graphics and
-presented at either of the North American or Asian editions of SIGGRAPH between
-January 2015 and December 2021, and recorded all of those that contained
-explicit mentions of sex or gender.
+presented at either of SIGGRAPH North American or SIGGRAPH Asia between
+January 2015 and December 2021. We recorded all those which contained
+explicit mentions of sex or gender and analyzed them from an algorithmic fairness perspective, drawing qualitative and quantitative observations listed below.
 
 \section{Observations}
 
-\begin{enumerate}
-    \item discrete binary variable: no mention of non-binary people
-    \item observed works never mention the existence of gender-non-conforming people and we found no work that explicitly attempted to correct the effect of them being underrepresented in comparison to gender conforming people.
-    \item when gender appears as a feature or target variable in an algorithm, it is always as a proxy, but what it is a proxy of varies through the literature: . Furthermore, some papers combine several proxies into one.
-    \item observed works that propose gender classifiers and/or used annotated gender data
-    \item user studies with unknown option
-\end{enumerate}
+From a total corpus of 1509, we identified 64 works that explicitly referenced sex or gender. In the interest of transparency and reproducibility, we list all of these in Table \ref{table:gender}; nonetheless, we stress that the intention of our study is to draw general conclusions about the use of gender in our field and not to criticize individual works.
 
+Further analyzing the recorded papers, we observe the following:
+
+\begin{enumerate}[O1.]
+    \item In 45 (70\%) of the reviewed works, gender and sex are explicitly presented as binary variables (taking values \emph{male/female} or \emph{man/woman}). We found no single mention or analysis of the representational bias this choice introduces towards gender non-conforming individuals.
+    \item In 19 (30\%) of the reviewed works, the nature of the variable is not made explicit (e.g., \emph{we tested our algorithm on images spanning various genders and ethnicities}).
+    \item None of the reviewed works presented gender or sex as non-binary. None of the observed works acknowledged the existence of gender non-conforming, trans, non-binary or intersex individuals.
+    \item In 20 (32\%) of the reviewed works, gender or sex are used as target or feature binary variables in an algorithm. In all these, gender is (implicitly or explicitly) used as a proxy for other variables; however, what they are a proxy for varies throughout the literature, from body proportions to voice attributes to facial expressions to verbal queues in speech to preferences in attire.
+    \item In 19 (30\%) of the reviewed works, gender or sex are mentioned as demographic data about the diversity of used datasets. None of the reviewed works explicitly mention the presence of intersex, gender non-conforming, trans or non-binary individuals in their datasets.
+    \item In 19 (30\%) of the reviewed works, gender or sex are mentioned as demographic data about the diversity of user study participants. Two include participants of ``unknown'' gender, and none reported participants of non-binary genders.
+    \item Several of the reviewed works use or propose new data-based binary gender classifiers to be used on images.
+\end{enumerate}
+\begin{table}[H]
+    \vspace{0.3cm}
+    \caption{Recorded SIGGRAPH 2015-2021 technical papers.}\label{table:gender}
+    \vspace{-0.3cm}
+\begin{tabular}{| C{4.5cm} | C{2.5cm}|}
+    \hline
+    \emph{Paper} & \emph{Observations} \\
+    \hline
+    \cite{zhang2021single} & \binary, \userstudy \\
+    \hline
+    \cite{wu2021coarse} & \unspecified \\
+    \hline
+    \cite{chen2021capturing} & \binary, \dataset \\
+    \hline
+    \cite{sonlu2021conversational} & \binary, \var \\
+    \hline
+    \cite{wang2021panoman} & \binary, \var \\
+    \hline
+    \cite{zhang2021vid2player} & \unspecified, \dataset \\
+    \hline
+    \cite{feng2021learning} & \binary \\
+    \hline
+    \cite{kim2021optimizing} & \binary, \var \\
+    \hline
+    \cite{wang2020rgb2hands} & \unspecified, \dataset \\
+    \hline
+    \cite{yoon2020speech} & \binary, \dataset, \userstudy \\
+    \hline
+    \cite{tewari2020pie} & \unspecified \\
+    \hline
+    \cite{li2020dynamic} & \unspecified, \dataset \\
+    \hline
+    \cite{won2020scalable} & \unspecified, \dataset \\
+    \hline
+    \cite{wisessing2020enlighten} & \binary, \var \\
+    \hline
+    \cite{chen2020deepfacedrawing} & \binary, \var \\
+    \hline
+    \cite{riviere2020single} & \unspecified \\
+    \hline
+    \cite{wang2019comic} & \binary, \var, \classifier \\
+    \hline
+    \cite{yu2019modeling} & \binary, \userstudy \\
+    \hline
+    \cite{dong2019redirected} & \binary, \userstudy \\
+    \hline
+    \cite{mueller2019real} & \binary, \userstudy \\
+    \hline
+    \cite{kuo2019creating} & \unspecified, \var \\
+    \hline
+    \cite{sun2019single} & \binary \\
+    \hline
+    \cite{cao2018carigans} & \unspecified, \dataset \\
+    \hline
+    \cite{wang2018learning} & \binary, \var \\
+    \hline
+    \cite{geng2018warp} & \binary, \userstudy \\
+    \hline
+    \cite{huang2018deep} & \binary, \dataset \\
+    \hline
+    \cite{wang2018tracking} & \binary, \userstudy \\
+    \hline
+    \cite{saito20183d} & \unspecified, \dataset \\
+    \hline
+    \cite{pai2018human} & \binary, \dataset \\
+    \hline
+    \cite{zhao2018characterizes} & \unspecified, \userstudy \\
+    \hline
+    \cite{yang2018physics} & \binary, \var \\
+    \hline
+    \cite{zhou2018visemenet} & \binary, \dataset \\
+    \hline
+    \cite{yamaguchi2018high} & \binary, \dataset \\
+    \hline
+    \cite{xu2018monoperfcap} & \binary, \dataset \\
+    \hline
+    \cite{averbuch2017bringing} & \binary, \userstudy \\
+    \hline
+    \cite{wen2017real} & \unspecified, \var \\
+    \hline
+    \cite{li2017learning} & \binary, \var \\
+    \hline
+    \cite{romero2017embodied} & \binary, \dataset \\
+    \hline
+    \cite{mehta2017vnect} & \unspecified \\
+    \hline
+    \cite{smith2017understanding} & \binary, \dataset \\
+    \hline
+    \cite{durupinar2016perform} & \binary, \dataset \\
+    \hline
+    \cite{koulieris2017accommodation} & \binary, \userstudy \\
+    \hline
+    \cite{konrad2017accommodation} & \binary, \userstudy \\
+    \hline
+    \cite{taylor2017deep} & \binary, \var \\
+    \hline
+    \cite{karras2017audio} & \binary, \var \\
+    \hline
+    \cite{jin2017voco} & \binary, \var \\
+    \hline  
+    
+   \end{tabular}
+   
+\end{table}
+\begin{table}
+   \begin{tabular}{| C{4.5cm} | C{2.5cm}|}
+    \hline
+    \multicolumn{2}{|c |}{\textbf{Table 1 continued}} \\
+    \hline
+    \cite{lun2016functionality} & \binary, \userstudy \\
+    \hline
+    \cite{olszewski2016high} & \binary, \dataset \\
+    \hline
+    \cite{garrido2016corrective} & \binary, \userstudy \\
+    \hline
+    \cite{bartle2016physics} & \unspecified, \var, \dataset, \classifier \\
+    \hline
+    \cite{kemelmacher2016transfiguring} & \binary, \var \\
+    \hline
+    \cite{garrido2016reconstruction} & \binary \\
+    \hline
+    \cite{edwards2016jali} & \binary, \userstudy \\
+    \hline
+    \cite{selim2016painting} & \unspecified \\
+    \hline
+    \cite{zell2015stylize} & \binary, \dataset, \userstudy \\
+    \hline
+    \cite{lee2015push} & \binary, \userstudy \\
+    \hline
+    \cite{adib2015capturing} & \unspecified, \userstudy \\
+    \hline
+    \cite{loper2015smpl} & \binary, \var \\
+    \hline
+    \cite{li2015facial} & \binary, \userstudy \\
+    \hline
+    \cite{swedish2015eyeselfie} & \unspecified, \var \\
+    \hline
+    \cite{lun2015elements} & \binary, \userstudy \\
+    \hline
+    \cite{rogge2014garment} & \binary, \var \\
+    \hline
+    \cite{pons2015dyna} & \binary, \var \\
+    \hline
+    \end{tabular}
+\end{table}
+
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references.bib}
 \end{document}

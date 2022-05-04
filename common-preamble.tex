@@ -3,7 +3,14 @@
 \usepackage[mathletters]{ucs}
 \usepackage[utf8x]{inputenc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\newcommand{\wf}[6]{%
+  \vspace*{-0.75\intextsep}
+  \hspace*{-0.5\columnsep}
+  \begin{wrapfigure}[#1]{#2}{#3}%
+  \centering%
+  \includegraphics[#4]{#5}
+  #6%
+\end{wrapfigure}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Referencing
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -80,6 +87,7 @@
 \newcommand{\dataset}{O5}
 \newcommand{\userstudy}{O6}
 \newcommand{\classifier}{O7}
+\newcommand{\yes}{X}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tables

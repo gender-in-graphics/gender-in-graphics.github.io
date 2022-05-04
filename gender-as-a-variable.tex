@@ -13,7 +13,7 @@
 
 \begin{document}
 
-\title{Gender and Sex in the Computer Graphics Research Literature}
+\title{Sex and Gender in the Computer Graphics Research Literature}
 
 \author{Ana Dodik}\authornote{Joint First Authors}
 \affiliation{\institution{Meta Platforms}}
@@ -33,9 +33,10 @@
     We survey the treatment of sex and gender in the Computer Graphics research
     literature from an algorithmic fairness perspective. The
     established practices on the use of gender and sex in our community are scientifically incorrect and constitute a
-    form of algorithmic bias with potential harmful effects. We propose ways of addressing these trends as technical limitations.
+    form of algorithmic bias with potential harmful effects. We propose ways of addressing these as technical limitations.
 \end{abstract}
 
+%   Mention good examples
 
 \maketitle
 
@@ -59,8 +60,8 @@ Sex and gender are referenced in the Computer Graphics literature: a dataset is 
 
 % more specific examples in the text
 
-The scientific consensus around the concepts of sex and gender has evolved in the past decades (see, e.g., \cite{pmid30377332}). As surveyed by \citet{fausto2012sex}, \emph{sex} is not one but a combination of many biological classifications (\emph{chromosomal, hormonal, reproductive, ...}) which cannot be unambiguously assigned in a binary way to as much as one in 50 people \cite{blackless2000sexually}.
-\emph{Gender}, on the other hand, is used to refer to an individual's self-identity \cite{money1972man}, their performance of certain acts as shaped by social expectations \cite{butler2003gender} and arbitrary organizational structures that can segregate people in different public bathrooms and even decide who can access education \cite{lorber1994paradoxes}. In these contemporary definitions, gender is non-binary, fluid and culturally-specific. Assuming outdated binary definitions of sex and gender is not just scientifically incorrect, but is also harmful (see \cite{un2015report}) to those who conform the least to this artificial binary (e.g, \emph{intersex}, \emph{transgender}, \emph{non-binary} people), to whom we will refer to as \emph{gender non-conforming} individuals.
+The scientific consensus around sex and gender has evolved in the past decades (see, e.g., \cite{pmid30377332}). As surveyed by \citet{fausto2012sex}, \emph{sex} is not one but a combination of many biological classifications (\emph{chromosomal, hormonal, reproductive, ...}) which cannot be assigned in a binary way to as much as one in 50 people \cite{blackless2000sexually}.
+\emph{Gender} is used to refer to an individual's self-identity \cite{money1972man}, their performance as shaped by social expectations \cite{butler2003gender} and arbitrary organizational structures that can segregate people into different public bathrooms or professions \cite{lorber1994paradoxes}. In these contemporary definitions, gender is fluid, culturally-specific and not binary. Assuming outdated binary definitions of sex and gender is not just scientifically incorrect, but is also harmful (see \cite{un2015report}) to those who conform the least to this artificial binary (e.g, \emph{intersex}, \emph{transgender}, \emph{non-binary} people), whom we call \emph{gender non-conforming}.
 
 The treatment of sex and gender in SIGGRAPH Technical Papers
 still adheres to a traditional binary understanding, excluding intersex, transgender, and
@@ -77,16 +78,17 @@ our community will open the door to new avenues of research.
 %\ana{So a small suggestion on how to make this more formal, we could indicate which type of algorithmic unfairness the different papers introduce, e.g.~\cite{FriedmanAndNissenbaum}.}
 
 Inspired by \citet{keyes2018misgendering}, we survey
-the technical papers from SIGGRAPH North America and SIGGRAPH Asia since
-2015 (see supplement). We observed references to sex and gender, varying in nature from demographic information regarding study participants, to gender-specific algorithms. Whenever gender or sex is used
-explicitly as a variable, it is always binary. Sex and gender are never given a precise definition, and are used as an proxies for features such as body proportions, facial expressions, or patterns in speech.
+all technical papers presented at any SIGGRAPH since 2015. We list all 64 containing mentions of sex or gender in our \textbf{Supplemental Material}, along with our main observations (O1-7). We make the deliberate choice to reference these observations and not specific works in this main text to stress that we do not associate any malicious intent to individual authors. Rather, we are showing how seemingly neutral, well-established practices in our community (which includes journals, editors, reviewers, etc.) can unwittingly perpetuate forms of algorithmic bias.
 
-From an algorithmic fairness perspective (\S\ref{sec:analysis}), our analysis reveals a worrying status quo in the use of gender and sex
-as variables. When we
-mention specific examples that perpetuate these trends, we stress that we are not
-associating any malicious intent. Rather, we are showing how seemingly
-neutral, well-established practices can unwittingly
-perpetuating forms of algorithmic bias.
+Our observed references to sex and gender varied in nature from demographic information regarding study participants (\userstudy) or dataset makeup (\dataset) to gender-specific algorithms (\var). Whenever gender or sex is used
+explicitly as a variable, it is always a binary (\binary) proxy for features such as body proportions or speech characteristics. The existence of gender non-conforming people was never acknowledged (O3). We found works proposing or using image-based (binary) gender recongition algorithms (\classifier).
+
+%From an algorithmic fairness perspective (\S\ref{sec:analysis}), our analysis reveals a worrying status quo in the use of gender and sex
+%as variables. When we
+%mention specific examples that perpetuate these trends, we stress that we are not
+%associating any malicious intent. Rather, we are showing how seemingly
+%neutral, well-established practices can unwittingly
+%perpetuating forms of algorithmic bias.
 
 %\ana{There is something to be said about the entire ``It's just the data thats biased'' discussion we keep having in ML ad nauseam. In our examples, it's not just the data that's the root of algorithmic unfairness, it's the active decisions of algorithm designers. For practitioners this means that, even if you don't have access to, e.g.~body scans of non-binary people, you can still try to remove a part of that bias that is due to algorithm design decisions.}
 \vspace{-0.1cm}
@@ -248,6 +250,6 @@ Our proposed break with tradition requires effort, and difficult conversations. 
 % future.
 
 \bibliographystyle{ACM-Reference-Format}
-\bibliography{references_tkim.bib}
+\bibliography{references.bib}
 
 \end{document}

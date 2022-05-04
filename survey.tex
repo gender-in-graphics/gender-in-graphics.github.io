@@ -50,15 +50,14 @@ explicit mentions of sex or gender and analyzed them from an algorithmic fairnes
 
 \section{Observations}
 
-From a total corpus of 1509, we identified 64 works that explicitly referenced sex or gender. In the interest of transparency and reproducibility, we list all of these in Table \ref{table:gender}; nonetheless, we stress that the intention of our study is to draw general conclusions about the use of gender in our field and not to criticize individual works.
-
-Further analyzing the recorded papers, we observe the following:
+\wf{4}{r}{1.3in}{trim={4mm 0mm 0mm 13mm}, width=1.3in}{observations.pdf}{} 
+From a total corpus of 1509, we identified 64 works (see Table \ref{table:gender}) that explicitly referenced sex or gender. Studying these in depth, we draw seven global observations relevant to our fairness analysis (see main text), which we detail below. In the inset, we show their aggregate prevalences. 
 
 \begin{enumerate}[O1.]
-    \item In 45 (70\%) of the reviewed works, gender and sex are explicitly presented as binary variables (taking values \emph{male/female} or \emph{man/woman}). We found no single mention or analysis of the representational bias this choice introduces towards gender non-conforming individuals.
+    \item In 45 (70\%) of the reviewed works, gender and sex are explicitly presented as binary variables (taking values \emph{male/female} or \emph{man/woman}). None of these 45 mentioned or analyzed the representational bias this choice introduces towards gender non-conforming individuals.
     \item In 19 (30\%) of the reviewed works, the nature of the variable is not made explicit (e.g., \emph{we tested our algorithm on images spanning various genders and ethnicities}).
     \item None of the reviewed works presented gender or sex as non-binary. None of the observed works acknowledged the existence of gender non-conforming, trans, non-binary or intersex individuals.
-    \item In 20 (32\%) of the reviewed works, gender or sex are used as target or feature binary variables in an algorithm. In all these, gender is (implicitly or explicitly) used as a proxy for other variables; however, what they are a proxy for varies throughout the literature, from body proportions to voice attributes to facial expressions to verbal queues in speech to preferences in attire.
+    \item In 20 (32\%) of the reviewed works, gender or sex are used as target or feature binary variables in an algorithm (or suggested to be used as future work). In all these, gender is (implicitly or explicitly) used as a proxy for other variables; however, what they are a proxy for varies throughout the literature, from body proportions to voice attributes to facial expressions to verbal queues in speech to preferences in attire.
     \item In 19 (30\%) of the reviewed works, gender or sex are mentioned as demographic data about the diversity of used datasets. None of the reviewed works explicitly mention the presence of intersex, gender non-conforming, trans or non-binary individuals in their datasets.
     \item In 19 (30\%) of the reviewed works, gender or sex are mentioned as demographic data about the diversity of user study participants. Two include participants of ``unknown'' gender, and none reported participants of non-binary genders.
     \item Several of the reviewed works use or propose new data-based binary gender classifiers to be used on images.
@@ -67,144 +66,144 @@ Further analyzing the recorded papers, we observe the following:
     \vspace{0.3cm}
     \caption{Recorded SIGGRAPH 2015-2021 technical papers.}\label{table:gender}
     \vspace{-0.3cm}
-\begin{tabular}{| C{4.5cm} | C{2.5cm}|}
+\begin{tabular}{| C{3.5cm} | C{0.26cm}| C{0.26cm}| C{0.26cm}| C{0.26cm}| C{0.26cm}| C{0.26cm}| C{0.26cm}|}
     \hline
-    \emph{Paper} & \emph{Observations} \\
+    \emph{Paper} & O1 & O2 & O3 & O4 & O5 & O6 & O7 \\
     \hline
-    \cite{zhang2021single} & \binary, \userstudy \\
+    \cite{zhang2021single} & \yes & & & & & \yes & \\
     \hline
-    \cite{wu2021coarse} & \unspecified \\
+    \cite{wu2021coarse} &  & \yes & & & & & \\
     \hline
-    \cite{chen2021capturing} & \binary, \dataset \\
+    \cite{chen2021capturing} & \yes & & & &\yes &  & \\
     \hline
-    \cite{sonlu2021conversational} & \binary, \var \\
+    \cite{sonlu2021conversational} & \yes & & & \yes & &  & \\
     \hline
-    \cite{wang2021panoman} & \binary, \var \\
+    \cite{wang2021panoman} & \yes & & & \yes & &  & \\
     \hline
-    \cite{zhang2021vid2player} & \unspecified, \dataset \\
+    \cite{zhang2021vid2player} & & \yes & & &\yes &  & \\
     \hline
-    \cite{feng2021learning} & \binary \\
+    \cite{feng2021learning} & \yes & & &  &  &  &\\
     \hline
-    \cite{kim2021optimizing} & \binary, \var \\
+    \cite{kim2021optimizing} & \yes & & & \yes & &  & \\
     \hline
-    \cite{wang2020rgb2hands} & \unspecified, \dataset \\
+    \cite{wang2020rgb2hands} & & \yes & & &\yes &  & \\
     \hline
-    \cite{yoon2020speech} & \binary, \dataset, \userstudy \\
+    \cite{yoon2020speech} & \yes & & &  & \yes & \yes & \\
     \hline
-    \cite{tewari2020pie} & \unspecified \\
+    \cite{tewari2020pie} & & \yes & & & &  & \\
     \hline
-    \cite{li2020dynamic} & \unspecified, \dataset \\
+    \cite{li2020dynamic} & & \yes & & &\yes &  & \\
     \hline
-    \cite{won2020scalable} & \unspecified, \dataset \\
+    \cite{won2020scalable} & & \yes & & &\yes &  & \\
     \hline
-    \cite{wisessing2020enlighten} & \binary, \var \\
+    \cite{wisessing2020enlighten} & \yes & & & \yes & &  & \\
     \hline
-    \cite{chen2020deepfacedrawing} & \binary, \var \\
+    \cite{chen2020deepfacedrawing} & \yes & & & \yes & &  & \\
     \hline
-    \cite{riviere2020single} & \unspecified \\
+    \cite{riviere2020single} & & \yes & & & &  & \\
     \hline
-    \cite{wang2019comic} & \binary, \var, \classifier \\
+    \cite{wang2019comic} & \yes & & & \yes & &  & \yes \\
     \hline
-    \cite{yu2019modeling} & \binary, \userstudy \\
+    \cite{yu2019modeling} & \yes & & &  & & \yes & \\
     \hline
-    \cite{dong2019redirected} & \binary, \userstudy \\
+    \cite{dong2019redirected} & \yes & & &  & & \yes & \\
     \hline
-    \cite{mueller2019real} & \binary, \userstudy \\
+    \cite{mueller2019real} & \yes & & &  & & \yes & \\
     \hline
-    \cite{kuo2019creating} & \unspecified, \var \\
+    \cite{kuo2019creating} & & \yes & & \yes &  &  &\\
     \hline
-    \cite{sun2019single} & \binary \\
+    \cite{sun2019single} & \yes & & &  &  &  &\\
     \hline
-    \cite{cao2018carigans} & \unspecified, \dataset \\
+    \cite{cao2018carigans} & & \yes & & &\yes &  & \\
     \hline
-    \cite{wang2018learning} & \binary, \var \\
+    \cite{wang2018learning} & \yes & & & \yes & &  & \\
     \hline
-    \cite{geng2018warp} & \binary, \userstudy \\
+    \cite{geng2018warp} & \yes & & &  & & \yes & \\
     \hline
-    \cite{huang2018deep} & \binary, \dataset \\
+    \cite{huang2018deep} & \yes & & &  & \yes &  & \\
     \hline
-    \cite{wang2018tracking} & \binary, \userstudy \\
+    \cite{wang2018tracking} & \yes & & &  & & \yes & \\
     \hline
-    \cite{saito20183d} & \unspecified, \dataset \\
+    \cite{saito20183d} & & \yes & & &\yes &  & \\
     \hline
-    \cite{pai2018human} & \binary, \dataset \\
+    \cite{pai2018human} & \yes & & &  & \yes &  & \\
     \hline
-    \cite{zhao2018characterizes} & \unspecified, \userstudy \\
+    \cite{zhao2018characterizes} & & \yes & &  &  & \yes & \\
     \hline
-    \cite{yang2018physics} & \binary, \var \\
+    \cite{yang2018physics} & \yes & & & \yes & &  & \\
     \hline
-    \cite{zhou2018visemenet} & \binary, \dataset \\
+    \cite{zhou2018visemenet} & \yes & & &  & \yes &  & \\
     \hline
-    \cite{yamaguchi2018high} & \binary, \dataset \\
+    \cite{yamaguchi2018high} & \yes & & &  & \yes &  & \\
     \hline
-    \cite{xu2018monoperfcap} & \binary, \dataset \\
+    \cite{xu2018monoperfcap} & \yes & & &  & \yes &  & \\
     \hline
-    \cite{averbuch2017bringing} & \binary, \userstudy \\
+    \cite{averbuch2017bringing} & \yes & & &  & & \yes & \\
     \hline
-    \cite{wen2017real} & \unspecified, \var \\
+    \cite{wen2017real} & & \yes & & &  &  &\\
     \hline
-    \cite{li2017learning} & \binary, \var \\
+    \cite{li2017learning} & \yes & & & \yes & &  & \\
     \hline
-    \cite{romero2017embodied} & \binary, \dataset \\
+    \cite{romero2017embodied} & \yes & & &  & \yes &  & \\
     \hline
-    \cite{mehta2017vnect} & \unspecified \\
+    \cite{mehta2017vnect} & & \yes & & &  &  & \\
     \hline
-    \cite{smith2017understanding} & \binary, \dataset \\
+    \cite{smith2017understanding} & \yes & & &  & \yes &  & \\
     \hline
-    \cite{durupinar2016perform} & \binary, \dataset \\
+    \cite{durupinar2016perform} & \yes & & &  & \yes &  & \\
     \hline
-    \cite{koulieris2017accommodation} & \binary, \userstudy \\
+    \cite{koulieris2017accommodation} & \yes & & &  & & \yes & \\
     \hline
-    \cite{konrad2017accommodation} & \binary, \userstudy \\
+    \cite{konrad2017accommodation} & \yes & & &  & & \yes & \\
     \hline
-    \cite{taylor2017deep} & \binary, \var \\
+    \cite{taylor2017deep} & \yes & & & \yes & &  & \\
     \hline
-    \cite{karras2017audio} & \binary, \var \\
+    \cite{karras2017audio} & \yes & & & \yes & &  & \\
     \hline
-    \cite{jin2017voco} & \binary, \var \\
+    \cite{jin2017voco} & \yes & & & \yes & &  & \\
     \hline  
     
    \end{tabular}
    
 \end{table}
 \begin{table}
-   \begin{tabular}{| C{4.5cm} | C{2.5cm}|}
+    \begin{tabular}{| C{4.2cm} | C{0.2cm}| C{0.2cm}| C{0.2cm}| C{0.2cm}| C{0.2cm}| C{0.2cm}| C{0.2cm}|}
     \hline
-    \multicolumn{2}{|c |}{\textbf{Table 1 continued}} \\
+    \multicolumn{8}{|c |}{\textbf{Table 1 continued}} \\
     \hline
-    \cite{lun2016functionality} & \binary, \userstudy \\
+    \cite{lun2016functionality} & \yes & & &  & & \yes & \\
     \hline
-    \cite{olszewski2016high} & \binary, \dataset \\
+    \cite{olszewski2016high} & \yes & & &  & \yes &  & \\
     \hline
-    \cite{garrido2016corrective} & \binary, \userstudy \\
+    \cite{garrido2016corrective} & \yes & & &  & & \yes & \\
     \hline
-    \cite{bartle2016physics} & \unspecified, \var, \dataset, \classifier \\
+    \cite{bartle2016physics} & & \yes & & \yes & \yes & & \\
     \hline
-    \cite{kemelmacher2016transfiguring} & \binary, \var \\
+    \cite{kemelmacher2016transfiguring}& \yes & & & \yes & &  & \yes \\
     \hline
-    \cite{garrido2016reconstruction} & \binary \\
+    \cite{garrido2016reconstruction} & \yes & & &  &  &  &\\
     \hline
-    \cite{edwards2016jali} & \binary, \userstudy \\
+    \cite{edwards2016jali} & \yes & & &  & & \yes & \\
     \hline
-    \cite{selim2016painting} & \unspecified \\
+    \cite{selim2016painting} & & \yes & &  &  &  & \\
     \hline
-    \cite{zell2015stylize} & \binary, \dataset, \userstudy \\
+    \cite{zell2015stylize} & \yes & & &  & \yes & \yes & \\
     \hline
-    \cite{lee2015push} & \binary, \userstudy \\
+    \cite{lee2015push} & \yes & & &  & & \yes & \\
     \hline
-    \cite{adib2015capturing} & \unspecified, \userstudy \\
+    \cite{adib2015capturing} & & \yes & &  &  & \yes & \\
     \hline
-    \cite{loper2015smpl} & \binary, \var \\
+    \cite{loper2015smpl} & \yes & & & \yes & &  & \\
     \hline
-    \cite{li2015facial} & \binary, \userstudy \\
+    \cite{li2015facial} & \yes & & &  & & \yes & \\
     \hline
-    \cite{swedish2015eyeselfie} & \unspecified, \var \\
+    \cite{swedish2015eyeselfie} & & \yes & & \yes &  &  &\\
     \hline
-    \cite{lun2015elements} & \binary, \userstudy \\
+    \cite{lun2015elements} & \yes & & &  & & \yes & \\
     \hline
-    \cite{rogge2014garment} & \binary, \var \\
+    \cite{rogge2014garment} & \yes & & & \yes & &  & \\
     \hline
-    \cite{pons2015dyna} & \binary, \var \\
+    \cite{pons2015dyna} & \yes & & & \yes & &  & \\
     \hline
     \end{tabular}
 \end{table}

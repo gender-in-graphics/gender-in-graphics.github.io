@@ -16,17 +16,19 @@
 
 \title{Sex and Gender in the Computer Graphics Research Literature}
 
-\author{Ana Dodik}\authornote{Joint First Authors}\authornote{}
+\author{Ana Dodik}\authornote{Joint First Authors}\authornote{Work done while the author was employed by Meta Platforms, Inc.}
 \affiliation{\institution{MIT}\country{United States of America}}
+\email{anadodik@mit.edu}
 
 \author{Silvia Sellán}\authornotemark[1]
 \affiliation{\institution{University of Toronto}\country{Canada}}
+\email{sgsellan@cs.toronto.edu}
 
 \author{Theodore Kim}
-\affiliation{\institution{Yale University}\country{United States of America}}
+\affiliation{\institution{Yale University}\country{United States of America}}\email{theodore.kim@yale.edu}
 
 \author{Amanda Phillips}
-\affiliation{\institution{Georgetown University}\country{United States of America}}
+\affiliation{\institution{Georgetown University}\country{United States of America}}\email{amanda.phillips@georgetown.edu}
 
 
 
@@ -42,7 +44,6 @@
 \maketitle
 
 %\ana{I understand wanting to focus on SIGGRAPH, but I think we should consider broadening the scope to include all of visual computing research. Computer vision is \textit{especially} guilty of this.}
-\vspace{-0.1cm}
 \section{Introduction}
 
 %\ted{this is a sample Ted Kim comment}
@@ -73,7 +74,6 @@ We will examine the real-world harms caused these biases in how gender non-confo
 our technology. We advocate for a reexamination of our treatment of gender, and show that correcting problematic practices in
 our community will open the door to new avenues of research.
 
-\vspace{-0.1cm}
 \section{Survey}
 
 %\ana{So a small suggestion on how to make this more formal, we could indicate which type of algorithmic unfairness the different papers introduce, e.g.~\cite{FriedmanAndNissenbaum}.}
@@ -92,7 +92,7 @@ explicitly as a variable, it is always a binary (\binary) proxy for features suc
 %perpetuating forms of algorithmic bias.
 
 %\ana{There is something to be said about the entire ``It's just the data thats biased'' discussion we keep having in ML ad nauseam. In our examples, it's not just the data that's the root of algorithmic unfairness, it's the active decisions of algorithm designers. For practitioners this means that, even if you don't have access to, e.g.~body scans of non-binary people, you can still try to remove a part of that bias that is due to algorithm design decisions.}
-\vspace{-0.1cm}
+
 \subsection{Algorithmic Fairness Analysis}\label{sec:analysis}
 
 Our survey shows that the current use of gender and sex in Computer Graphics is at best ill-defined, and at worst incorrect.
@@ -143,7 +143,6 @@ When gender or sex was chosen as a feature or target variable, it was always (\b
 \paragraphtight{Deployment bias} Real-world harm is introduced when graphics models are published or deployed. The exclusive publication of papers with a binary understanding of sex and gender incentivizes researchers (and reviewers) to conform to that definition (\binary).
 This leads to \emph{feedback loops}: if gender non-conforming people are not included in a virtual clothing try-on system, they are less likely to use it, skewing the system's performance data to include them even less. Finally, a system can impose its biases onto user behavior: a trans person may need to change the pitch of their voice in order to not get misgendered by an algorithm, further skewing the data.
 
-\vspace{-0.1cm}
 \subsection{Real world harm}
 
 The technical limitations of the reviewed algorithms can lead to real world harms. As Computer Graphics is increasingly applied to other fields, such as geometric data processing in medicine, or for synthetic dataset generation in computer vision, with numerous downstream applications \cite{cars, chen2021synthetic, dhs}, it is paramount to understand that our algorithms can and will be used in novel ways that can cause unintended harms. The algorithmic fairness literature disambiguates between {\em representational} and {\em allocative} harms \cite{barocas-hardt-narayanan}.
@@ -154,7 +153,6 @@ The technical limitations of the reviewed algorithms can lead to real world harm
 
 Finally, ignoring the existence of gender non-conforming individuals in our research (O3) creates an alienating and exclusionary environment for these exact members of our research community, directly contravening SIGGRAPH's goal to be \emph{a model of inclusion, equity, access and diversity for all}.
 
-\vspace{-0.1cm}
 \section{Where do we go from here?}
 
 Our analysis reveals that the common use of sex and gender in Computer Graphics can pepper our research with algorithmic bias. Our disambiguated study shows bias throughout the modeling process: algorithmic fairness cannot be an afterthought but must present at all stages of our research. We have focused on sex and gender, but hope our work broadens conversations about algorithmic fairness.% in our field, including racial biases \cite{kim2021countering}.

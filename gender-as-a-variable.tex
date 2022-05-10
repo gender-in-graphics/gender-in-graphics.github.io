@@ -60,8 +60,8 @@ Sex and gender are referenced in the Computer Graphics literature: a dataset is 
 
 % more specific examples in the text
 
-The scientific consensus around sex and gender has evolved in the past decades (see, e.g., \cite{pmid30377332}). As surveyed by \citet{fausto2012sex}, \emph{sex} is not one but a combination of many biological classifications (\emph{chromosomal, hormonal, reproductive, ...}) which cannot be assigned in a binary way to as much as one in 50 people \cite{blackless2000sexually}.
-\emph{Gender} is used to refer to an individual's self-identity \cite{money1972man}, their performance as shaped by social expectations \cite{butler2003gender} and arbitrary organizational structures that can segregate people into different public bathrooms or professions \cite{lorber1994paradoxes}. In these contemporary definitions, gender is fluid, culturally-specific and not binary. Assuming outdated binary definitions of sex and gender is not just scientifically incorrect, but is also harmful (see \cite{un2015report}) to those who conform the least to this artificial binary (e.g, \emph{intersex}, \emph{transgender}, \emph{non-binary} people), whom we call \emph{gender non-conforming}.
+The scientific consensus around sex and gender has evolved in the past decades \cite{pmid30377332}. As surveyed by \citet{fausto2012sex}, \emph{sex} is not one but a combination of many biological classifications (\emph{chromosomal, hormonal, reproductive, ...}) which cannot be assigned in a binary way to as many as one in 50 people \cite{blackless2000sexually}.
+\emph{Gender} refers to an individual's self-identity \cite{money1972man}, or their performance as shaped by social expectations \cite{butler2003gender}. It also commonly refers to arbitrary organizational structures that segregate people into, e.g. different public bathrooms or professions \cite{lorber1994paradoxes}. In these contemporary definitions, gender is fluid, culturally-specific and not binary. Assuming outdated binary definitions of sex and gender is not just scientifically incorrect, but is also harmful to those who conform the least to this artificial binary (e.g, \emph{intersex}, \emph{transgender}, \emph{non-binary} people), whom we call \emph{gender non-conforming} \cite{un2015report}.
 
 The treatment of sex and gender in SIGGRAPH Technical Papers
 still adheres to a traditional binary understanding, excluding intersex, transgender, and
@@ -81,7 +81,7 @@ Inspired by \citet{keyes2018misgendering}, we survey
 all technical papers presented at any SIGGRAPH since 2015. We list all 64 containing mentions of sex or gender in our \textbf{Supplemental Material}, along with our main observations (O1-7). We make the deliberate choice to reference these observations and not specific works in this main text to stress that we do not associate any malicious intent to individual authors. Rather, we are showing how seemingly neutral, well-established practices in our community (which includes journals, editors, reviewers, etc.) can unwittingly perpetuate forms of algorithmic bias.
 
 Our observed references to sex and gender varied in nature from demographic information regarding study participants (\userstudy) or dataset makeup (\dataset) to gender-specific algorithms (\var). Whenever gender or sex is used
-explicitly as a variable, it is always a binary (\binary) proxy for features such as body proportions or speech characteristics. The existence of gender non-conforming people was never acknowledged (O3). We found works proposing or using image-based (binary) gender recongition algorithms (\classifier).
+explicitly as a variable, it is always a binary (\binary) proxy for features such as body proportions or speech characteristics. The existence of gender non-conforming people was never acknowledged (O3). We found works proposing or using image-based (binary) gender recognition algorithms (\classifier).
 
 %From an algorithmic fairness perspective (\S\ref{sec:analysis}), our analysis reveals a worrying status quo in the use of gender and sex
 %as variables. When we
@@ -96,7 +96,7 @@ explicitly as a variable, it is always a binary (\binary) proxy for features suc
 
 Our survey shows that the current use of gender and sex in Computer Graphics is at best ill-defined, and at worst incorrect.
 We apply the framework of \citet{Suresh2021}, which categorizes bias according to the stages of a system's lifecycle 
-(see also \cite{fairnesssurvey,FriedmanAndNissenbaum,olteanu2019social})
+(see also \cite{fairnesssurvey,FriedmanAndNissenbaum,olteanu2019social}).
 We give examples of how different types of bias occur, and show that these are \emph{technical} limitations that impede the development of precise, high-quality, reproducible research.
 
 \paragraphtight{Representation bias} Portions of populations may be poorly represented by a dataset, e.g., because the sampling procedure did not include people of non-binary genders (\emph{sample selection bias}) or because algorithm performance was not evaluated on groups of \emph{underrepresented} sex or gender. Despite the prevalence of these individuals in the general population, we did not identified a single paper (O3) that explicitly mentioned them as part of datasets (\dataset) or user study participants (\userstudy). The sampling procedure may have been unintentionally designed to exclude these individuals, or it might be due to measurement bias. We did not identify any work that explicitly analyzed any type of representation bias experienced by gender non-conforming individuals (\binary).
@@ -147,7 +147,7 @@ This leads to \emph{feedback loops}: if gender non-conforming people are not inc
 
 The technical limitations of the reviewed algorithms can lead to real world harms. As Computer Graphics is increasingly applied to other fields, such as geometric data processing in medicine, or for synthetic dataset generation in computer vision, with numerous downstream applications \cite{cars, chen2021synthetic, dhs}, it is paramount to understand that our algorithms can and will be used in novel ways that can cause unintended harms. The algorithmic fairness literature disambiguates between {\em representational} and {\em allocative} harms \cite{barocas-hardt-narayanan}.
 
-{\bf Representational harms} encompass the perpetuation of stereotypes or cultural norms that subject individuals to denigration. For example, airport body scanners routinely subject gender non-conforming passengers to public humillation \cite{tsa}.
+{\bf Representational harms} encompass the perpetuation of stereotypes or cultural norms that subject individuals to denigration. For example, airport body scanners routinely subject gender non-conforming passengers to public humiliation \cite{tsa}.
 
 {\bf Allocative harms} are when certain groups are denied access to a resource because of algorithmic bias. For example, a virtual try-on experience based on biased algorithms might exclude the precise people with non-normative bodies who are most in danger in traditional physical changing rooms \cite{changingroom}.
 
@@ -161,7 +161,7 @@ Our analysis reveals that the common use of sex and gender in Computer Graphics 
 Various real-world constraints may make it unrealistic for specific research groups to mitigate certain sources of bias, but potentially introduced biases should still be acknowledged. For example, none of the surveyed papers included algorithmic fairness metrics (for a summary, see \cite{fairnesssurvey, fairnessmetrics}) in their evaluation, nor did they include a discussion of how their treatment of sex and gender could cause potential harm.
 
 The issues raised by our survey often reveal \emph{scientific} limitations. If a method cannot model a class of humans, or a production system fails for a subsection of the population, these are fundamental \emph{technical} limitations, and should be discussed as such. Gender and sex can have a place in our research. It would be beneficial to report them among demographic statistics of datasets or user study participants (self-reported and non binary, in agreement with the scientific consensus) to
-safeguard against the “male default” that plagues the sciences. In most cases we observed sex or gender being used as features or targets, they should have been replaced by other, more accurate, variables. Finding these ommitted variables and disaggregating the attributes that have been traditionally crammed into sex and gender constitute important open research problems.
+safeguard against the “male default” that plagues the sciences. In most cases where we observed sex or gender being used as features or targets, they should have been replaced by other, more accurate, variables. Finding these omitted variables and disaggregating the attributes that have been traditionally crammed into sex and gender constitute important open research problems.
 
 Our proposed break with tradition requires effort, and difficult conversations. These are challenges worth facing if we want scientific advances to produce a fairer, more inclusive future.
 % \begin{itemize}

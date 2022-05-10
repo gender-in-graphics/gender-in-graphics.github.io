@@ -35,9 +35,10 @@
 %%   Right bracket \]     Circumflex    \^     Underscore    \_
 %%   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %%   Right brace   \}     Tilde         \~}
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{acmart}
-[2020/11/15 v1.75 Typesetting articles for the Association for Computing Machinery]
+[2022/04/09 v1.84 Typesetting articles for the Association for Computing Machinery]
 \def\@classname{acmart}
 \InputIfFileExists{acmart-preload-hook.tex}{%
   \ClassWarning{\@classname}{%
@@ -120,6 +121,10 @@
   \PackageError{\@classname}{The option balance can be either true or
     false}}
 \ExecuteOptionsX{balance}
+\define@boolkey+{acmart.cls}[@ACM@]{pbalance}[true]{}{%
+  \PackageError{\@classname}{The option pbalance can be either true or
+    false}}
+\ExecuteOptionsX{pbalance=false}
 \define@boolkey+{acmart.cls}[@ACM@]{natbib}[true]{%
   \if@ACM@natbib
     \PackageInfo{\@classname}{Explicitly selecting natbib mode}%
@@ -159,6 +164,11 @@
 \DeclareOptionX{10pt}{\edef\ACM@fontsize{\CurrentOption}}
 \DeclareOptionX{11pt}{\edef\ACM@fontsize{\CurrentOption}}
 \DeclareOptionX{12pt}{\edef\ACM@fontsize{\CurrentOption}}
+\def\ACM@languages{}
+\DeclareOptionX{language}{%
+  \ifx\ACM@languages\@empty
+  \gdef\ACM@languages{english}\fi
+  \g@addto@macro\ACM@languages{, #1}}
 \DeclareOptionX{draft}{\PassOptionsToClass{\CurrentOption}{amsart}}
 \DeclareOptionX{*}{\PassOptionsToClass{\CurrentOption}{amsart}}
 \ProcessOptionsX
@@ -353,6 +363,77 @@
 \if@ACM@natbib
 \citestyle{acmnumeric}
 \fi
+\if@ACM@journal
+  \renewcommand\keywordsname{Additional Key Words and Phrases}%
+\else
+  \renewcommand\keywordsname{Keywords}%
+\fi
+\ifx\ACM@languages\@empty
+\else
+  \RequirePackage[\ACM@languages]{babel}%
+  \addto\captionsenglish{%
+      \if@ACM@journal
+        \renewcommand\keywordsname{Additional Key Words and Phrases}%
+      \else
+        \renewcommand\keywordsname{Keywords}%
+      \fi
+      \renewcommand\acksname{Acknowledgements}%
+  }%
+  \addto\captionsfrench{%
+      \if@ACM@journal
+        \renewcommand\keywordsname{Mots Clés et Phrases Supplémentaires}%
+      \else
+        \renewcommand\keywordsname{Mots clés}%
+      \fi
+      \renewcommand\acksname{Remerciements}%
+  }%
+  \addto\captionsgerman{%
+      \if@ACM@journal
+        \renewcommand\keywordsname{Zusätzliche Schlagwörter und Phrasen}%
+      \else
+        \renewcommand\keywordsname{Schlagwörter}%
+      \fi
+      \renewcommand\acksname{Danksagungen}%
+  }%
+  \addto\captionsspanish{%
+      \if@ACM@journal
+        \renewcommand\keywordsname{Palabras y Frases Claves Adicionales}%
+      \else
+        \renewcommand\keywordsname{Palabras claves}%
+      \fi
+      \renewcommand\acksname{Expresiones de gratitud}%
+  }%
+\fi
+\newcommand\ACM@lang@check[1]{%
+  \ifx\ACM@languages\@empty\relax
+  \ClassError{\@classname}{%
+    Command \string#1 \MessageBreak is used in monlingual document}{%
+    You used a command (\string#1) \MessageBreak
+    that does not have a meaning \MessageBreak
+    unless are languages are defined. \MessageBreak
+    Please choose the languages in \string\documentclass
+    \MessageBreak
+    (e.g. \string\documentclass[languages={french, english}]{acmart}),
+    \MessageBreak
+    or delete the command.}%
+  \fi}
+\def\@translatedtitle{}
+\newcommand\translatedtitle[2]{\ACM@lang@check{\translatedtitle}%
+\g@addto@macro\@translatedtitle{\par\foreignlanguage{#1}{#2}}}
+\def\@translatedsubtitle{}
+\newcommand\translatedsubtitle[2]{\ACM@lang@check{\translatedsubtitle}%
+\g@addto@macro\@translatedsubtitle{\par\foreignlanguage{#1}{#2}}}
+\def\@translatedkeywords{}
+\newcommand\translatedkeywords[2]{\ACM@lang@check{\translatedkeywords}%
+\g@addto@macro\@translatedkeywords{\@mktranslatedkeywords{#1}{#2}}}
+\def\@translatedabstracts{}
+\newenvironment{translatedabstract}[1]{\Collect@Body
+  \@savetranslatedabstract\@mktranslatedabstract{#1}}{}
+\long\def\@savetranslatedabstract#1{\if@ACM@maketitle@typeset
+  \ClassError{\@classname}{Abstract must be defined before maketitle
+    command. Please move it!}\fi
+  \ACM@lang@check{translatedabstract}%
+  \g@addto@macro\@translatedabstracts{\bgroup#1\egroup}}
 \def\@startsection#1#2#3#4#5#6{%
   \if@noskipsec \leavevmode \fi
   \par
@@ -487,6 +568,7 @@
         \rule\z@\footnotesep\ignorespaces#1\@finalstrut\strutbox}%
     \color@endgroup}}
 \def\@makefnmark{\hbox{\@textsuperscript{\normalfont\@thefnmark}}}
+\RequirePackage{hyperxmp}
 \let\@footnotemark@nolink\@footnotemark
 \let\@footnotetext@nolink\@footnotetext
 \RequirePackage[bookmarksnumbered,unicode]{hyperref}
@@ -526,7 +608,6 @@
   \fi
   \hypersetup{pdflang={en},
     pdfdisplaydoctitle}}
-\RequirePackage{hyperxmp}
 \if@ACM@natbib
   \let\citeN\cite
   \let\cite\citep
@@ -935,11 +1016,15 @@
   CIE,%
   CSUR,%
   DGOV,%
+  DLT,%
   DTRAP,%
+  FAC,%
+  GAMES,%
   HEALTH,%
   IMWUT,%
   JACM,%
   JDIQ,%
+  JDS,%
   JEA,%
   JERIC,%
   JETC,%
@@ -1007,10 +1092,22 @@
   \def\@journalName{Digital Government: Research and Practice}%
   \def\@journalNameShort{Digit. Gov. Res. Pract.}%
   \def\@permissionCodeOne{2639-0175}%
+\or % DLT
+  \def\@journalName{Distributed Ledger Technologies: Research and Practice}%
+  \def\@journalNameShort{Distrib. Ledger Technol.}%
+  \def\@permissionCodeOne{2769-6472}%
 \or % DTRAP
   \def\@journalName{Digital Threats: Research and Practice}%
   \def\@journalNameShort{Digit. Threat. Res. Pract.}%
   \def\@permissionCodeOne{2576-5337}%
+\or % FAC
+  \def\@journalName{Formal Aspects of Computing}%
+  \def\@journalNameShort{Form. Asp. Comput.}%
+  \def\@permissionCodeOne{0934-5043}%
+  \def\@permissionCodeTwo{1433-299X}%
+\or % GAMES
+  \def\@journalName{ACM Games: Research and Practice}%
+  \def\@journalNameShort{ACM Games}%
 \or % HEALTH
   \def\@journalName{ACM Transactions on Computing for Healthcare}%
   \def\@journalNameShort{ACM Trans. Comput. Healthcare}%
@@ -1030,6 +1127,11 @@
   \def\@journalName{ACM Journal of Data and Information Quality}%
   \def\@journalNameShort{ACM J. Data Inform. Quality}%
   \def\@permissionCodeOne{1936-1955}%
+\or % JDS
+  \def\@journalName{ACM/JMS Journal of Data Science}%
+  \def\@journalNameShort{ACM/IMS J. Data Sci.}%
+  \def\@permissionCodeOne{2831-3194}%
+  \def\@permissionCodeTwo{2831-3194}%
 \or % JEA
   \def\@journalName{ACM Journal of Experimental Algorithmics}%
   \def\@journalNameShort{ACM J. Exp. Algor.}%
@@ -1045,6 +1147,8 @@
 \or % JOCCH
   \def\@journalName{ACM Journal on Computing and Cultural Heritage}%
   \def\@journalNameShort{ACM J. Comput. Cult. Herit.}%
+  \def\@permissionCodeOne{1556-4673}%
+  \def\@permissionCodeTwo{1556-4711}%
 \or % PACMCGIT
   \def\@journalName{Proceedings of the ACM on Computer Graphics and Interactive Techniques}%
   \def\@journalNameShort{Proc. ACM Comput. Graph. Interact. Tech.}%
@@ -1080,6 +1184,8 @@
 \or % TACO
   \def\@journalName{ACM Transactions on Architecture and Code Optimization}%
   \def\@journalNameShort{ACM Trans. Arch. Code Optim.}%
+  \def\@permissionCodeOne{1544-3566}%
+  \def\@permissionCodeTwo{1544-3973}%
 \or % TALG
   \def\@journalName{ACM Transactions on Algorithms}%
   \def\@journalNameShort{ACM Trans. Algor.}%
@@ -1090,14 +1196,20 @@
   \def\@permissionCodeOne{2375-4699}%
 \or % TAP
   \def\@journalName{ACM Transactions on Applied Perception}%
+  \def\@journalNameShort{ACM Trans. Appl. Percept.}%
+  \def\@permissionCodeOne{1544-3558}%
 \or % TCPS
   \def\@journalName{ACM Transactions on Cyber-Physical Systems}%
+  \def\@journalNameShort{ACM Trans. Cyber-Phys. Syst.}%
+  \def\@permissionCodeOne{2378-962X}%
 \or % TDS
   \def\@journalName{ACM/IMS Transactions on Data Science}%
   \def\@journalNameShort{ACM/IMS Trans. Data Sci.}%
   \def\@permissionCodeOne{2577-3224}%
 \or % TEAC
   \def\@journalName{ACM Transactions on Economics and Computation}%
+  \def\@journalNameShort{ACM Trans. Econ. Comput.}%
+  \def\@permissionCodeOne{2167-8375}%
 \or % TECS
   \def\@journalName{ACM Transactions on Embedded Computing Systems}%
   \def\@journalNameShort{ACM Trans. Embedd. Comput. Syst.}%
@@ -1168,6 +1280,7 @@
   \def\@permissionCodeOne{0730-0301}
 \or % TOIS
   \def\@journalName{ACM Transactions on Information Systems}%
+  \def\@journalNameShort{ACM Trans. Inf. Syst.}%
   \def\@permissionCodeOne{1046-8188}%
 \or % TOIT
   \def\@journalName{ACM Transactions on Internet Technology}%
@@ -1176,11 +1289,13 @@
 \or % TOMACS
   \def\@journalName{ACM Transactions on Modeling and Computer Simulation}%
   \def\@journalNameShort{ACM Trans. Model. Comput. Simul.}%
+  \def\@permissionCodeOne{1049-3301}%
+  \def\@permissionCodeTwo{1558-1195}%
 \or % TOMM
   \def\@journalName{ACM Transactions on Multimedia Computing, Communications and Applications}%
   \def\@journalNameShort{ACM Trans. Multimedia Comput. Commun. Appl.}%
   \def\@permissionCodeOne{1551-6857}%
-  \def\@permissionCodeTwo{0100}%
+  \def\@permissionCodeTwo{1551-6865}%
 \or % TOMPECS
   \def\@journalName{ACM Transactions on Modeling and Performance Evaluation of Computing Systems}%
   \def\@journalNameShort{ACM Trans. Model. Perform. Eval. Comput. Syst.}%
@@ -1238,8 +1353,8 @@
   \def\@journalNameShort{ACM Trans. Web}%
   \def\@permissionCodeOne{1559-1131}%
 \else % FACMP, a dummy journal
-  \def\@journalName{Forthcoming ACM Publication}%
-  \def\@journalNameShort{ACM Forthcoming}%
+  \def\@journalName{ACM Just Accepted}%
+  \def\@journalNameShort{ACM Accepted}%
   \def\@permissionCodeOne{XXXX-XXXX}%
 \fi
 \ClassInfo{\@classname}{Using journal code \@journalCode}%
@@ -1268,9 +1383,12 @@
   DC, USA}%
 \fi
 \def\acmBooktitle#1{\gdef\@acmBooktitle{#1}}
+\acmBooktitle{}
+\ifx\acmConference@name\@undefined\else
 \acmBooktitle{Proceedings of \acmConference@name
        \ifx\acmConference@name\acmConference@shortname\else
-         \ (\acmConference@shortname)\fi}
+       \ (\acmConference@shortname)\fi}
+\fi
 \def\@editorsAbbrev{(Ed.)}
 \def\@acmEditors{}
 \def\editor#1{\ifx\@acmEditors\@empty
@@ -1302,12 +1420,16 @@
           \@acmSubmissionID\fi}}%
       \gdef\authors{Anonymous Author(s)}%
     \else
-      \gdef\addresses{\@author{#2}}%
+      \expandafter\gdef\expandafter\addresses\expandafter{%
+        \expandafter\@author\expandafter{%
+          \csname typeset@author\the\num@authors\endcsname{#2}}}%
       \gdef\authors{#2}%
     \fi
   \else
     \if@ACM@anonymous\else
-      \g@addto@macro\addresses{\and\@author{#2}}%
+    \expandafter\g@addto@macro\expandafter\addresses\expandafter{%
+      \expandafter\and\expandafter\@author\expandafter{%
+        \csname typeset@author\the\num@authors\endcsname{#2}}}%
       \g@addto@macro\authors{\and#2}%
     \fi
   \fi
@@ -1358,9 +1480,20 @@
   \if@ACM@anonymous\else
     \g@addto@macro\addresses{\email{#1}{#2}}%
   \fi}
-\def\orcid#1{\unskip\ignorespaces}
+\def\orcid#1{\unskip\ignorespaces%
+  \IfBeginWith{#1}{http}{%
+    \expandafter\gdef\csname
+        typeset@author\the\num@authors\endcsname##1{%
+          \href{#1}{##1}}}{%
+    \expandafter\gdef\csname
+        typeset@author\the\num@authors\endcsname##1{%
+          \href{https://orcid.org/#1}{##1}}}}
 \def\authorsaddresses#1{\def\@authorsaddresses{#1}}
 \authorsaddresses{\@mkauthorsaddresses}
+\newcommand\@mktranslatedkeywords[2]{\bgroup
+  \selectlanguage{#1}%
+  {\@specialsection{\keywordsname}%
+    \noindent#2\par}\egroup}
 \def\@titlenotes{}
 \def\titlenote#1{%
   \g@addto@macro\@title{\footnotemark}%
@@ -1466,8 +1599,11 @@
   \fi}{\ClassError{\@classname}{The option printacmref can be either true or false}}
 \AtEndDocument{\if@ACM@nonacm\else\if@ACM@printacmref\else
   \ifnum\getrefnumber{TotPages}>1\relax
-  \ClassWarningNoLine{\@classname}{ACM reference format is mandatory
-    for papers over one page}%
+  \ClassWarningNoLine{\@classname}{%
+    ACM reference format is mandatory \MessageBreak
+    for papers over one page. \MessageBreak
+    Please add printacmref=true to the \MessageBreak
+    \string\settopmatter\space command.}%
   \fi\fi\fi}
 \define@boolkey+{@ACM@topmatter@}[@ACM@]{printfolios}[true]{%
   \if@ACM@printfolios
@@ -1778,6 +1914,12 @@
    \else
     \g@addto@macro\thankses{\thanks{#1}}%
    \fi}}
+\newcommand{\anon}[2][ANONYMIZED]{%
+  \if@ACM@anonymous%
+    {\color{ACMOrange}#1}%
+  \else%
+    #2%
+  \fi}
 \ifx\@beginmaketitlehook\@undefined
   \let\@beginmaketitlehook\@empty
 \fi
@@ -1875,6 +2017,8 @@
   \endgroup
   \setcounter{footnote}{0}%
   \@mkabstract
+  \ifx\@translatedabstracts\@empty\else
+  \@translatedabstracts\fi
   \if@ACM@printccs
   \ifx\@concepts\@empty\else\bgroup
       {\@specialsection{CCS Concepts}%
@@ -1882,13 +2026,12 @@
      \fi
    \fi
    \ifx\@keywords\@empty\else\bgroup
-      {\if@ACM@journal
-         \@specialsection{Additional Key Words and Phrases}%
-       \else
-         \@specialsection{Keywords}%
-       \fi
-         \noindent\@keywords}\par\egroup
+      {\@specialsection{\keywordsname}%
+         \noindent\@keywords\par}\egroup
    \fi
+  \ifx\@translatedkeywords\@empty\else
+     \@translatedkeywords
+  \fi
   \let\metadata@authors=\authors
   \nxandlist{, }{, }{, }\metadata@authors
   \def\@ACM@checkaffil{}%
@@ -1916,6 +2059,8 @@
   \@afterheading
 }
 \def\@specialsection#1{%
+  \let\@vspace\@vspace@orig
+  \let\@vspacer\@vspacer@orig
   \ifcase\ACM@format@nr
   \relax % manuscript
     \par\medskip\small\noindent#1: %
@@ -1936,12 +2081,26 @@
   \or % sigchi-a
     \section*{#1}%
     \fi
+  \let\@vspace\@vspace@acm
+  \let\@vspacer\@vspacer@acm
 }
 \def\@printtopmatter{%
   \ifx\@startPage\@empty
      \gdef\@startPage{1}%
   \else
      \setcounter{page}{\@startPage}%
+  \fi
+  \@tempdima=\ht\mktitle@bx
+  \advance\@tempdima by \dp\mktitle@bx
+  \ifdim\@tempdima>0.9\textheight
+    \loop
+      \setbox\@tempboxa=\vsplit \mktitle@bx to 0.9\textheight
+      \thispagestyle{firstpagestyle}%
+      \noindent\unvbox\@tempboxa
+      \clearpage
+      \@tempdima=\ht\mktitle@bx
+      \advance\@tempdima by \dp\mktitle@bx
+    \ifdim\@tempdima>0.9\textheight\repeat
   \fi
   \thispagestyle{firstpagestyle}%
   \noindent
@@ -2060,9 +2219,9 @@
     \fi
     \parbox[t]{\@ACM@title@width}{\raggedright
       \@titlefont\noindent
-      \@title
+      \@title\@translatedtitle%
   \ifx\@subtitle\@empty\else
-    \par\noindent{\@subtitlefont\@subtitle}
+    \par\noindent{\@subtitlefont\@subtitle\@translatedsubtitle}%
   \fi}%
   \ifx\@acmBadgeR@image\@empty\else
     \hskip\@ACM@badge@skip
@@ -2084,9 +2243,9 @@
         \hskip\@ACM@badge@skip
       \fi
       \parbox[t]{\@ACM@title@width}{\centering\@titlefont
-        \@title
+        \@title\@translatedtitle%
         \ifx\@subtitle\@empty\else
-          \par\noindent{\@subtitlefont\@subtitle}
+          \par\noindent{\@subtitlefont\@subtitle\@translatedsubtitle}
         \fi
       }%
       \if@ACM@badge
@@ -2101,9 +2260,9 @@
 \def\@mktitle@iv{\hsize=\textwidth
     \setbox\mktitle@bx=\vbox{\raggedright\leftskip5pc\@titlefont
       \noindent\leavevmode\leaders\hrule height 2pt\hfill\kern0pt\par
-      \noindent\@title
+      \noindent\@title\@translatedtitle%
      \ifx\@subtitle\@empty\else
-       \par\noindent\@subtitlefont\@subtitle
+       \par\noindent\@subtitlefont\@subtitle\@translatedsubtitle%
      \fi
      \par\bigskip}}%
 \newbox\@ACM@commabox
@@ -2212,6 +2371,10 @@
   \if@ACM@citypresent\else
   \ClassWarningNoLine{\@classname}{No city present for an affiliation}%
   \fi
+  \if@ACM@countrypresent\else
+  \ClassError{\@classname}{No country present for an affiliation}{ACM
+    requires each author to indicate their country using country macro.}%
+  \fi
 }
 \def\@mkauthors@i{%
   \def\@currentauthors{}%
@@ -2241,7 +2404,7 @@
       \fi
     \fi
      \global\let\and\@typeset@author@line}%
-  \global\setbox\mktitle@bx=\vbox{\noindent\box\mktitle@bx\par\medskip
+  \global\setbox\mktitle@bx=\vbox{\noindent\unvbox\mktitle@bx\par\medskip
     \noindent\addresses\@typeset@author@line
    \par\medskip}%
 }
@@ -2307,7 +2470,7 @@
 }%
   \hsize=\textwidth
   \global\setbox\mktitle@bx=\vbox{\noindent
-    \box\mktitle@bx\par\medskip\leavevmode
+    \unvbox\mktitle@bx\par\medskip\leavevmode
     \lineskip=1pc\relax\centering\hspace*{-1em}%
     \addresses\let\and\@typeset@author@bx\and\par\bigskip}}
 \def\@mkauthors@iv{%
@@ -2362,12 +2525,13 @@
   \def\streetaddress##1{\unskip, ##1}%
   \def\postcode##1{\unskip, ##1}%
   \def\position##1{\unskip\ignorespaces}%
-  \def\institution##1{\unskip, ##1}%
+  \gdef\@ACM@institution@separator{, }%
+  \def\institution##1{\unskip\@ACM@institution@separator ##1\gdef\@ACM@institution@separator{ and }}%
   \def\city##1{\unskip, ##1}%
   \def\state##1{\unskip, ##1}%
   \renewcommand\department[2][0]{\unskip\@addpunct, ##2}%
   \def\country##1{\unskip, ##1}%
-  \def\and{\unskip; }%
+  \def\and{\unskip; \gdef\@ACM@institution@separator{, }}%
   \def\@author##1{##1}%
   \def\email##1##2{\unskip, \nolinkurl{##2}}%
   \addresses
@@ -2384,7 +2548,7 @@
   \ifx\@teaserfigures\@empty\else
     \def\@teaser##1{\par\bigskip\bgroup
       \captionsetup{type=figure}##1\egroup\par}
-    \global\setbox\mktitle@bx=\vbox{\noindent\box\mktitle@bx\par
+    \global\setbox\mktitle@bx=\vbox{\noindent\unvbox\mktitle@bx\par
       \noindent\@Description@presentfalse
       \@teaserfigures\par\if@Description@present\else
          \global\@undescribed@imagestrue
@@ -2394,7 +2558,7 @@
   \fi}
 \def\@mkabstract{\bgroup
   \ifx\@abstract\@lempty\else
-  {\phantomsection\addcontentsline{toc}{section}{Abstract}%
+  {\phantomsection\addcontentsline{toc}{section}{\abstractname}%
     \if@ACM@journal
        \everypar{\setbox\z@\lastbox\everypar{}}\small
     \else
@@ -2402,6 +2566,13 @@
     \fi
    \ignorespaces\@abstract\par}%
   \fi\egroup}
+\def\@mktranslatedabstract#1{\selectlanguage{#1}%
+    \if@ACM@journal
+       \everypar{\setbox\z@\lastbox\everypar{}}\small
+    \else
+       \section*{\abstractname}%
+    \fi
+   \ignorespaces}
 \def\@mkbibcitation{\bgroup
   \let\@vspace\@vspace@orig
   \let\@vspacer\@vspacer@orig
@@ -2583,7 +2754,10 @@
       \fancyfoot[C]{\if@ACM@printfolios\footnotesize\thepage\fi}%
       \fancyhead[LO]{\ACM@linecountL\@headfootfont\shorttitle}%
       \fancyhead[RE]{\@headfootfont\@shortauthors\ACM@linecountR}%
-      \if@ACM@nonacm\else%
+      \if@ACM@nonacm
+        \fancyhead[LE]{\ACM@linecountL}%
+        \fancyhead[RO]{\ACM@linecountR}%
+      \else%
         \fancyhead[LE]{\ACM@linecountL\@headfootfont\footnotesize
           \acmConference@shortname,
           \acmConference@date, \acmConference@venue}%
@@ -2596,7 +2770,10 @@
     \fancyfoot[C]{\if@ACM@printfolios\footnotesize\thepage\fi}%
     \fancyhead[LO]{\ACM@linecountL\@headfootfont\shorttitle}%
     \fancyhead[RE]{\@headfootfont\@shortauthors\ACM@linecountR}%
-    \if@ACM@nonacm\else%
+    \if@ACM@nonacm
+      \fancyhead[LE]{\ACM@linecountL}%
+      \fancyhead[RO]{\ACM@linecountR}%
+    \else%
       \fancyhead[LE]{\ACM@linecountL\@headfootfont
         \acmConference@shortname,
         \acmConference@date, \acmConference@venue}%
@@ -2927,6 +3104,25 @@
   \popQED\endtrivlist\@endpefalse
 }
 \AtEndPreamble{%
+  \if@ACM@pbalance
+    \global\@ACM@balancefalse
+    \ifcase\ACM@format@nr
+    \relax % manuscript
+       \or % acmsmall
+       \or % acmlarge
+       \or % acmtog
+          \RequirePackage{pbalance}%
+       \or % sigconf
+          \RequirePackage{pbalance}%
+       \or % siggraph
+          \RequirePackage{pbalance}%
+       \or % sigplan
+          \RequirePackage{pbalance}%
+       \or % sigchi
+          \RequirePackage{pbalance}%
+       \or % sigchi-a
+    \fi
+  \fi
   \if@ACM@balance
     \ifcase\ACM@format@nr
     \relax % manuscript
@@ -2984,9 +3180,24 @@
   \def\@tempa{#1}%
   \ifx\@tempa\@empty\def\@tempa{arxiv}\fi
   \def\@tempb{arxiv}%
-  \ifx\@tempa\@tempb
-     arXiv:\href{https://arxiv.org/abs/#2}{#2}\else arXiv:#2%
+  \ifx\@tempa\@tempb\relax
+     arXiv:\href{https://arxiv.org/abs/#2}{#2}%
+  \else
+     \def\@tempb{arXiv}%
+     \ifx\@tempa\@tempb\relax
+       arXiv:\href{https://arxiv.org/abs/#2}{#2}%
+     \else
+       #1:#2%
+    \fi
   \fi}
+\def\theindex{\@restonecoltrue\if@twocolumn\@restonecolfalse\fi
+  \columnseprule\z@ \columnsep 35\p@
+  \@indextitlestyle
+  \let\item\@idxitem
+  \parindent\z@  \parskip\z@\@plus.3\p@\relax
+  \raggedright
+  \hyphenpenalty\@M
+  \footnotesize}
 \let\@vspace@orig=\@vspace
 \let\@vspacer@orig=\@vspacer
 \apptocmd{\@vspace}{\ClassWarning{\@classname}{\string\vspace\space should
